@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 html {
   scroll-behavior: smooth;
 }
@@ -5,6 +7,10 @@ html {
 * {
   margin: 0;
   padding: 0;
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
 }
 
 body {
@@ -38,6 +44,7 @@ body {
 
 .welcome-section button {
   padding: 5px;
+  margin: 0 0 15px;
   width: 100px;
   border-radius: 15px;
   border: none;
@@ -46,4 +53,40 @@ body {
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.quiz-window {
+  width: 500px;
+  background-color: grey;
+  padding: 20px;
+  color: white;
+  border-radius: 10px;
+  margin: 0 0 0 25px;
+}
+
+.quiz-question {
+  text-align: center;
+  margin: 5px 0 5px;
+  padding: 5px;
+}
+
+.quiz-choice {
+  cursor: pointer;
+  padding: 10px;
+  border: 0.5px solid white;
+  margin: 0 0 5px;
+}
+
+@media (max-width: 750px) {
+  body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  #app-container {
+    width: 80%;
+  }
+  .quiz-window {
+    max-width: 400px;
+  }
 }

@@ -73,50 +73,74 @@ const questions = [
   },
 ];
 
+//To display question in the browser console
 console.log(questions);
 
+//app container where i store all questions
 const appContainer = document.getElementById("app-container");
 const startButton = document.querySelector("button");
 const welcomeSection = document.querySelector(".welcome-section");
 
 startButton.addEventListener("click", startQuiz);
+// document.body.addEventListener("load", appContainer.remove());
 
 function clearPage() {
   document.body.innerHTML = "";
 }
 
+let currentQuestionIndex = 0; // Вынесите это за пределы функции
+
 function startQuiz() {
   welcomeSection.remove();
   let quizWindow = document.createElement("div");
-  quizWindow.style.width = "500px";
-  quizWindow.style.backgroundColor = "grey";
-  quizWindow.style.padding = "20px";
-  quizWindow.style.color = "white";
-  quizWindow.style.borderRadius = "10px";
-  quizWindow.style.margin = "0 0 0 25px";
+  quizWindow.className = "quiz-window";
 
-  for (let i = 0; i < questions.length; i++) {
-    let quizQuestion = document.createElement("h3");
-    quizQuestion.innerHTML = questions[i].question;
-    console.log(quizQuestion);
-    quizWindow.appendChild(quizQuestion);
-    for (let y = 0; y < questions[i].options.length; y++) {
-      let quizChoice = document.createElement("div");
-      quizChoice.innerHTML = questions[i].options[y];
-      quizChoice.style.cursor = "pointer";
-      quizChoice.style.padding = "10px";
-      quizChoice.style.border = "1px solid white";
-      quizChoice.style.marginBottom = "5px";
-      quizChoice.addEventListener("click", () => {
-        alert(`You chose: ${questions[i].options[y]}`);
-        if (questions[i].options[y] === questions[i].correctAnswer) {
-          alert(`Congratulations! You were right`);
-        } else {
-          alert(`Not correct :( `);
-        }
-      });
-      quizWindow.appendChild(quizChoice);
+  function showQuestion() {
+    //Clear a previous question
+    quizWindow.innerHTML = "";
+
+    //Begin with 0, and check for array if we aren't out of it
+    if (currentQuestionIndex < questions.length) {
+      let quizQuestion = document.createElement("h3");
+      quizQuestion.className = "quiz-question";
+      //Add a content of current question
+      quizQuestion.innerHTML = questions[currentQuestionIndex].question;
+      //Add an element in DOM
+      quizWindow.appendChild(quizQuestion);
+
+      //Begin with 0, and check for array of options into questions
+      for (let y = 0; y < questions[currentQuestionIndex].options.length; y++) {
+        let quizChoice = document.createElement("div");
+        quizChoice.innerHTML = questions[currentQuestionIndex].options[y];
+        quizChoice.className = "quiz-choice";
+
+        //When you click on answers, you have alternatives
+        quizChoice.addEventListener("click", () => {
+          //   alert(`You chose: ${questions[currentQuestionIndex].options[y]}`);
+          if (
+            questions[currentQuestionIndex].options[y] ===
+            questions[currentQuestionIndex].correctAnswer
+          ) {
+            alert(`Congratulations! You were right`);
+            quizChoice.style.backgroundColor = "green";
+          } else {
+            alert(`Not correct :( `);
+          }
+          currentQuestionIndex++;
+          //Show a next question
+          showQuestion();
+        });
+
+        quizWindow.appendChild(quizChoice);
+      }
+    } else {
+      // If there aren't question, it shows
+      quizWindow.innerHTML = "<h3>Quiz Finished!</h3>";
     }
   }
+
+  //Show a next question
+  showQuestion();
+  //Add a window with question
   appContainer.appendChild(quizWindow);
 }
