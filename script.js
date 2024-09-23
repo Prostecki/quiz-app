@@ -89,15 +89,19 @@ function clearPage() {
   document.body.innerHTML = ""; // Set the body's inner HTML to an empty string
 }
 
-// Variable to keep track of the current question index
+// Variable to keep track of the current question index and points of right answers
 let currentQuestionIndex = 0;
+let currentQuestionPoints = 0;
 
 // Function to start the quiz
 function startQuiz() {
   welcomeSection.remove(); // Remove the welcome section from the DOM
   let quizWindow = document.createElement("div"); // Create a new div for the quiz window
+  let quizPointCounter = document.createElement("div"); // Create a new div for the quiz counter of points
+  quizPointCounter.innerHTML = `You earned ${currentQuestionPoints}`;
+  quizPointCounter.className = "quiz-point-counter"; // Set the class name for styling
   quizWindow.className = "quiz-window"; // Set the class name for styling
-
+  quizWindow.appendChild(quizPointCounter);
   // Function to show the current question
   function showQuestion() {
     quizWindow.innerHTML = ""; // Clear previous question and answers
@@ -129,6 +133,8 @@ function startQuiz() {
               "You are right!, " +
               questions[currentQuestionIndex].correctAnswer; // Set feedback for correct answer
             rightAnswer.style.color = "white"; // Set text color to white
+            currentQuestionPoints++;
+            quizPointCounter.innerHTML = `You earned ${currentQuestionPoints} pts.`;
           } else {
             rightAnswer.innerHTML =
               "You made a mistake! " +
@@ -144,6 +150,7 @@ function startQuiz() {
         });
 
         quizWindow.appendChild(quizChoice); // Add the answer option to the quiz window
+        quizWindow.appendChild(quizPointCounter);
       }
     } else {
       // If there are no more questions

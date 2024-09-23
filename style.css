@@ -55,6 +55,19 @@ body {
   cursor: pointer;
 }
 
+.quiz-point-counter {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #ff0000a3;
+  max-width: max-content;
+  padding: 5px;
+  border: 0.5px solid black;
+  border-radius: 15px;
+}
+
 .quiz-window {
   position: relative;
   width: 500px;
