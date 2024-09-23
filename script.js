@@ -150,7 +150,11 @@ function startQuiz() {
       }
     } else {
       // If there are no more questions
-      quizWindow.innerHTML = `<h3>Quiz Finished! You earned ${currentQuestionPoints} pts.</h3>`; // Display quiz finished message
+      let finishHeadline = document.createElement("h3");
+      finishHeadline.className = "finish-headline";
+      finishHeadline.innerHTML = `Quiz Finished! You earned ${currentQuestionPoints} pts.`;
+      quizWindow.appendChild(finishHeadline);
+      //   quizWindow.innerHTML = `<h3>Quiz Finished! You earned ${currentQuestionPoints} pts.</h3>`; // Display quiz finished message
       //   appContainer.appendChild(startButton);
     }
   }
