@@ -1,11 +1,12 @@
 const questions = [
   {
-    question: "Какой язык программирования используется для веб-разработки?",
+    question:
+      "Which programming language is the most popular for developing websites today?",
     options: ["JavaScript", "Ruby", "C++", "Swift"],
     correctAnswer: "JavaScript",
   },
   {
-    question: "Что означает аббревиатура CSS?",
+    question: "What does the abbreviation CSS stand for?",
     options: [
       "Cascading Style Sheets",
       "Creative Style System",
@@ -15,13 +16,12 @@ const questions = [
     correctAnswer: "Cascading Style Sheets",
   },
   {
-    question: "Какой HTML-тег используется для создания ссылок?",
+    question: "Which HTML tag is used to create links?",
     options: ["link", "a", "href", "url"],
     correctAnswer: "a",
   },
   {
-    question:
-      "Какой метод в JavaScript используется для получения элемента по ID?",
+    question: "Which JavaScript method is used to get an element by ID?",
     options: [
       "getElementById()",
       "querySelector()",
@@ -31,7 +31,7 @@ const questions = [
     correctAnswer: "getElementById()",
   },
   {
-    question: "Что такое JSON?",
+    question: "What is JSON?",
     options: [
       "JavaScript Object Notation",
       "JavaScript Online Notation",
@@ -41,33 +41,33 @@ const questions = [
     correctAnswer: "JavaScript Object Notation",
   },
   {
-    question: "Какой тег используется для вставки изображений в HTML?",
+    question: "Which tag is used to insert images in HTML?",
     options: ["image", "img", "picture", "src"],
     correctAnswer: "<img>",
   },
   {
-    question: "Что такое Flexbox?",
+    question: "What is Flexbox?",
     options: [
-      "Метод программирования",
-      "Система разметки",
-      "Модель компоновки",
-      "Язык стилей",
+      "Programming method",
+      "Markup system",
+      "Layout model",
+      "Styling language",
     ],
-    correctAnswer: "Модель компоновки",
+    correctAnswer: "Layout model",
   },
   {
-    question: "Какой символ используется для комментирования в JavaScript?",
+    question: "Which symbol is used for comments in JavaScript?",
     options: ["//", "#", "/*", "!-- >"],
     correctAnswer: "//",
   },
   {
     question:
-      "Какой метод используется для добавления элемента в конец массива в JavaScript?",
+      "Which method is used to add an element to the end of an array in JavaScript?",
     options: ["push()", "add()", "insert()", "append()"],
     correctAnswer: "push()",
   },
   {
-    question: "Какой тег HTML используется для создания списков?",
+    question: "Which HTML tag is used to create lists?",
     options: ["ul", "list", "ol", "li"],
     correctAnswer: "<ul>",
   },
@@ -136,9 +136,7 @@ function startQuiz() {
             currentQuestionPoints++;
             quizPointCounter.innerHTML = `You earned ${currentQuestionPoints} pts.`;
           } else {
-            rightAnswer.innerHTML =
-              "You made a mistake! " +
-              questions[currentQuestionIndex].correctAnswer; // Set feedback for incorrect answer
+            rightAnswer.innerHTML = `Wrong! The answer is ${questions[currentQuestionIndex].correctAnswer}`; // Set feedback for incorrect answer
             rightAnswer.style.backgroundColor = "red"; // Set background color to red
             rightAnswer.style.color = "white"; // Set text color to white
           }
@@ -154,7 +152,7 @@ function startQuiz() {
       }
     } else {
       // If there are no more questions
-      quizWindow.innerHTML = "<h3>Quiz Finished!</h3>"; // Display quiz finished message
+      quizWindow.innerHTML = `<h3>Quiz Finished! You earned ${currentQuestionPoints} pts.</h3>`; // Display quiz finished message
     }
   }
 

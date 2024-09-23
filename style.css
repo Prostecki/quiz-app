@@ -57,13 +57,13 @@ body {
 
 .quiz-point-counter {
   position: absolute;
-  top: 1rem;
+  top: -3rem;
   left: 1rem;
   font-size: 1rem;
-  font-weight: bold;
-  background-color: #ff0000a3;
+  font-weight: bolder;
+  background-color: #210000ca;
   max-width: max-content;
-  padding: 5px;
+  padding: 5px 10px;
   border: 0.5px solid black;
   border-radius: 15px;
 }
