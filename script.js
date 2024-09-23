@@ -78,7 +78,7 @@ console.log(questions);
 
 //app container where i store all questions
 const appContainer = document.getElementById("app-container");
-const startButton = document.querySelector("button");
+const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
 
 startButton.addEventListener("click", startQuiz);
@@ -129,9 +129,7 @@ function startQuiz() {
             questions[currentQuestionIndex].options[y] ===
             questions[currentQuestionIndex].correctAnswer
           ) {
-            rightAnswer.innerHTML =
-              "You are right!, " +
-              questions[currentQuestionIndex].correctAnswer; // Set feedback for correct answer
+            rightAnswer.innerHTML = "You are right!"; // Set feedback for correct answer
             rightAnswer.style.color = "white"; // Set text color to white
             currentQuestionPoints++;
             quizPointCounter.innerHTML = `You earned ${currentQuestionPoints} pts.`;
@@ -153,6 +151,7 @@ function startQuiz() {
     } else {
       // If there are no more questions
       quizWindow.innerHTML = `<h3>Quiz Finished! You earned ${currentQuestionPoints} pts.</h3>`; // Display quiz finished message
+      //   appContainer.appendChild(startButton);
     }
   }
 
