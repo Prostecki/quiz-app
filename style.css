@@ -24,6 +24,7 @@ body {
 
 #app-container {
   width: 30rem;
+  display: none;
 }
 
 .welcome-section {
@@ -48,11 +49,17 @@ body {
   width: 100px;
   border-radius: 15px;
   border: none;
-  background: linear-gradient(green, yellow, rgb(133, 133, 175));
   color: black;
   font-weight: bold;
   font-size: 1rem;
   cursor: pointer;
+  transition: 0.5s;
+}
+
+.start-button:hover {
+  background: #a6a6a69f;
+  transition: 0.5s;
+  color: white;
 }
 
 .quiz-point-counter {
@@ -96,6 +103,12 @@ body {
   padding: 5px;
   text-align: center;
   border: 0.5px solid white;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.quiz-choice:hover {
+  background-color: #b4b4b496;
 }
 
 .quiz-right {

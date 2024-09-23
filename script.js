@@ -81,6 +81,10 @@ const appContainer = document.getElementById("app-container");
 const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
 
+// window.addEventListener("DOMContentLoaded", () => {
+//   appContainer.remove();
+// });
+
 startButton.addEventListener("click", startQuiz);
 // document.body.addEventListener("load", appContainer.remove());
 
@@ -95,7 +99,8 @@ let currentQuestionPoints = 0;
 
 // Function to start the quiz
 function startQuiz() {
-  welcomeSection.remove(); // Remove the welcome section from the DOM
+  welcomeSection.remove(); // Remove the welcome section from the DOM;
+  appContainer.style.display = "block";
   let quizWindow = document.createElement("div"); // Create a new div for the quiz window
   let quizPointCounter = document.createElement("div"); // Create a new div for the quiz counter of points
   quizPointCounter.innerHTML = `You earned ${currentQuestionPoints}`;
