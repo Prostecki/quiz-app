@@ -143,7 +143,6 @@ function startQuiz() {
             rightAnswer.style.backgroundColor = "red"; // Set background color to red
             rightAnswer.style.color = "white"; // Set text color to white
           }
-
           quizWindow.appendChild(rightAnswer); // Add the feedback to the quiz window
           currentQuestionIndex++; // Move to the next question
           // Show the next question after a delay of 2 seconds
