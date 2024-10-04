@@ -85,7 +85,7 @@ const welcomeSection = document.querySelector(".welcome-section");
 //   appContainer.remove();
 // });
 
-startButton.addEventListener("click", startQuiz);
+// startButton.addEventListener("click", startQuiz);
 // document.body.addEventListener("load", appContainer.remove());
 
 // Function to clear the entire page content
