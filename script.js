@@ -1,80 +1,16 @@
-const questions = [
-  {
-    question:
-      "Which programming language is the most popular for developing websites today?",
-    options: ["JavaScript", "Ruby", "C++", "Swift"],
-    correctAnswer: "JavaScript",
-  },
-  {
-    question: "What does the abbreviation CSS stand for?",
-    options: [
-      "Cascading Style Sheets",
-      "Creative Style System",
-      "Computer Style Sheets",
-      "Cascading Script Sheets",
-    ],
-    correctAnswer: "Cascading Style Sheets",
-  },
-  {
-    question: "Which HTML tag is used to create links?",
-    options: ["link", "a", "href", "url"],
-    correctAnswer: "a",
-  },
-  {
-    question: "Which JavaScript method is used to get an element by ID?",
-    options: [
-      "getElementById()",
-      "querySelector()",
-      "getElementsByClassName()",
-      "getElement()",
-    ],
-    correctAnswer: "getElementById()",
-  },
-  {
-    question: "What is JSON?",
-    options: [
-      "JavaScript Object Notation",
-      "JavaScript Online Notation",
-      "Java Standard Object Notation",
-      "Java Object Notation",
-    ],
-    correctAnswer: "JavaScript Object Notation",
-  },
-  {
-    question: "Which tag is used to insert images in HTML?",
-    options: ["image", "img", "picture", "src"],
-    correctAnswer: "<img>",
-  },
-  {
-    question: "What is Flexbox?",
-    options: [
-      "Programming method",
-      "Markup system",
-      "Layout model",
-      "Styling language",
-    ],
-    correctAnswer: "Layout model",
-  },
-  {
-    question: "Which symbol is used for comments in JavaScript?",
-    options: ["//", "#", "/*", "!-- >"],
-    correctAnswer: "//",
-  },
-  {
-    question:
-      "Which method is used to add an element to the end of an array in JavaScript?",
-    options: ["push()", "add()", "insert()", "append()"],
-    correctAnswer: "push()",
-  },
-  {
-    question: "Which HTML tag is used to create lists?",
-    options: ["ul", "list", "ol", "li"],
-    correctAnswer: "<ul>",
-  },
-];
-
-//To display question in the browser console
-console.log(questions);
+async function fetchQuestions() {
+  try {
+    const response = await fetch("questions.json");
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status ${response.status}`);
+    }
+    const questions = await response.json();
+    console.log(questions);
+  } catch (error) {
+    console.error("Something wrong!:", error);
+  }
+}
+fetchQuestions();
 
 //app container where i store all questions
 const appContainer = document.getElementById("app-container");
@@ -85,7 +21,7 @@ const welcomeSection = document.querySelector(".welcome-section");
 //   appContainer.remove();
 // });
 
-// startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", startQuiz);
 // document.body.addEventListener("load", appContainer.remove());
 
 // Function to clear the entire page content
