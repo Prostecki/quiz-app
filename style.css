@@ -31,6 +31,10 @@ body {
   display: block;
 }
 
+.center-text {
+  text-align: center;
+}
+
 .welcome-section {
   width: 300px;
   background-color: rgb(99, 99, 99);
@@ -72,6 +76,12 @@ body {
   padding: 10px;
   margin: 10px 0;
   font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: grey;
+    transition: 0.3s;
+  }
 }
 
 .computer-games {
@@ -80,6 +90,12 @@ body {
   padding: 10px;
   margin: 10px 0;
   font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: red;
+    transition: 0.3s;
+  }
 }
 
 .quiz-point-counter {
