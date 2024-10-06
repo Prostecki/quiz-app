@@ -70,5 +70,67 @@
       "options": ["ul", "list", "ol", "li"],
       "correctAnswer": "<ul>"
     }
+  ],
+  "computergames": [
+    {
+      "question": "Which company developed the famous game series 'The Legend of Zelda'?",
+      "options": ["Nintendo", "Sony", "Microsoft", "Sega"],
+      "correctAnswer": "Nintendo"
+    },
+    {
+      "question": "What is the best-selling video game of all time?",
+      "options": ["Minecraft", "Grand Theft Auto V", "Tetris", "The Sims"],
+      "correctAnswer": "Minecraft"
+    },
+    {
+      "question": "Which year was the original PlayStation console released?",
+      "options": ["1994", "1996", "1998", "2000"],
+      "correctAnswer": "1994"
+    },
+    {
+      "question": "Which game popularized the battle royale genre?",
+      "options": ["Fortnite", "PUBG", "Call of Duty: Warzone", "Apex Legends"],
+      "correctAnswer": "PUBG"
+    },
+    {
+      "question": "Who is the main character of the 'Halo' series?",
+      "options": ["Master Chief", "Cortana", "Commander Shepard", "Duke Nukem"],
+      "correctAnswer": "Master Chief"
+    },
+    {
+      "question": "Which company is known for creating the 'World of Warcraft' series?",
+      "options": ["Blizzard Entertainment", "Bethesda", "Valve", "Square Enix"],
+      "correctAnswer": "Blizzard Entertainment"
+    },
+    {
+      "question": "What was the first game in the 'Grand Theft Auto' series released?",
+      "options": ["1997", "1999", "2001", "2003"],
+      "correctAnswer": "1997"
+    },
+    {
+      "question": "Which game won the 'Game of the Year' award at The Game Awards in 2020?",
+      "options": [
+        "The Last of Us Part II",
+        "Ghost of Tsushima",
+        "Doom Eternal",
+        "Animal Crossing: New Horizons"
+      ],
+      "correctAnswer": "The Last of Us Part II"
+    },
+    {
+      "question": "Which gaming platform launched 'Half-Life' and 'Portal'?",
+      "options": ["Steam", "Origin", "Epic Games", "GOG"],
+      "correctAnswer": "Steam"
+    },
+    {
+      "question": "What is the primary objective of the game 'Fortnite'?",
+      "options": [
+        "Survival in battle royale",
+        "Solving puzzles",
+        "Winning races",
+        "Building structures"
+      ],
+      "correctAnswer": "Survival in battle royale"
+    }
   ]
 }
