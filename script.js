@@ -75,46 +75,59 @@ function startComputerScience(questions) {
   greetingsBox.appendChild(greetingsParagraph);
   appContainer.appendChild(greetingsBox);
 
-  displayQuestions(questions);
+  setTimeout(() => {
+    displayQuestions(questions);
+  }, 2000);
 }
 
-//To display questions
+// To display questions
 function displayQuestions(questions) {
   clearPage();
-  if (!Array.isArray(questions)) {
-    console.error("Questions is not an array:", questions);
+
+  if (currentQuestionIndex >= questions.length) {
+    let stopQuizContainer = document.createElement("div");
+    let stopQuizHeadline = document.createElement("h3");
+    stopQuizHeadline.textContent = "Quiz complete!";
+    stopQuizContainer.appendChild(stopQuizHeadline);
+    appContainer.appendChild(stopQuizContainer);
+    console.log("Quiz complete!"); // Here you could show results or reset the quiz
     return;
   }
-  questions.forEach((question, index) => {
-    let questionDiv = document.createElement("div");
-    let questionText = document.createElement("h3");
 
-    questionText.textContent = `${index + 1}. ${question.question}`;
+  const question = questions[currentQuestionIndex];
+  let questionDiv = document.createElement("div");
+  let questionText = document.createElement("h3");
+  questionText.textContent = `${currentQuestionIndex + 1}. ${
+    question.question
+  }`;
+  console.log(question.question);
+  let optionsList = document.createElement("ul");
 
-    let optionsList = document.createElement("ul");
+  //Going through the answer options for the current question
+  question.options.forEach((option) => {
+    let optionItem = document.createElement("li");
+    optionItem.textContent = option;
 
-    question.options.forEach((option) => {
-      let optionItem = document.createElement("li");
-      optionItem.textContent = option;
-      optionsList.appendChild(optionItem);
-
-      optionItem.addEventListener("click", () =>
-        checkAnswer(option, question.correctAnswer)
-      );
+    optionItem.addEventListener("click", () => {
+      checkAnswer(option, question.correctAnswer);
     });
 
-    questionDiv.appendChild(questionText);
-    questionDiv.appendChild(optionsList);
-    appContainer.appendChild(questionDiv);
+    optionsList.appendChild(optionItem);
   });
+
+  questionDiv.appendChild(questionText);
+  questionDiv.appendChild(optionsList);
+  appContainer.appendChild(questionDiv);
 }
 
-function checkAnswer(selectedOption, correctAnswer) {
+function checkAnswer(selectedOption, correctAnswer, questions) {
   if (selectedOption === correctAnswer) {
     console.log("Correct!");
   } else {
     console.log("Wrong answer!");
   }
+  currentQuestionIndex++;
+  displayComputerQuestions(questions);
 }
 
 async function displayComputerQuestions() {
