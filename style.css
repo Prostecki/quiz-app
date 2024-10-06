@@ -22,9 +22,13 @@ body {
   background-color: #f0f0f0;
 }
 
-#app-container {
+.app-container {
   width: 30rem;
   display: none;
+}
+
+.isActive {
+  display: block;
 }
 
 .welcome-section {
@@ -60,6 +64,22 @@ body {
   background: #a6a6a69f;
   transition: 0.5s;
   color: white;
+}
+
+.computer-science {
+  background-color: lightblue;
+  border-left: 5px solid blue;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
+}
+
+.computer-games {
+  background-color: lightgreen;
+  border-left: 5px solid green;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
 }
 
 .quiz-point-counter {
