@@ -15,40 +15,48 @@ startButton.addEventListener("click", (e) => {
   startQuiz();
 });
 
+function createCategoryButton(text, className, onClick) {
+  let categoryDiv = document.createElement("div");
+  categoryDiv.classList.add(className);
+  categoryDiv.textContent = text;
+  categoryDiv.addEventListener("click", onClick);
+  appContainer.appendChild(categoryDiv);
+}
+
 function startQuiz() {
   welcomeSection.remove();
   appContainer.classList.add("isActive");
 
-  let computerScience = document.createElement("div");
-  let computerGames = document.createElement("div");
+  let currentQuestionIndex = 0;
+  let currentQuestionPoints = 0;
 
-  computerGames.classList.add("computer-games");
-  computerScience.classList.add("computer-science");
-
-  computerGames.textContent = "Computer Games";
-  computerScience.textContent = "Computer Science";
-
-  appContainer.appendChild(computerScience);
-  appContainer.appendChild(computerGames);
-
-  computerScience.addEventListener("click", displayComputerQuestions);
-  computerGames.addEventListener("click", displayGamesQuestions);
+  createCategoryButton(
+    "Computer Science",
+    "computer-science",
+    displayComputerQuestions
+  );
+  createCategoryButton(
+    "Computer Games",
+    "computer-games",
+    displayGamesQuestions
+  );
 }
 
 function clearPage() {
   appContainer.innerHTML = "";
 }
 
-function startComputerScience(questions) {
+function startQuizCategory(questions, categoryTitle) {
   clearPage();
-  let greetingsBox = document.createElement("div");
-  let greetingsHeadline = document.createElement("h2");
-  let greetingsParagraph = document.createElement("p");
 
+  let greetingsBox = document.createElement("div");
   greetingsBox.classList.add("center-text");
 
-  greetingsHeadline.textContent = "Welcome to computer science questions!";
-  greetingsParagraph.textContent = "Lets get start!";
+  let greetingsHeadline = document.createElement("h2");
+  greetingsHeadline.textContent = `Welcome to ${categoryTitle} questions!`;
+
+  let greetingsParagraph = document.createElement("p");
+  greetingsParagraph.textContent = "Let's get started!";
 
   greetingsBox.appendChild(greetingsHeadline);
   greetingsBox.appendChild(greetingsParagraph);
@@ -56,24 +64,32 @@ function startComputerScience(questions) {
 
   setTimeout(() => {
     displayQuestions(questions);
-  }, 2000);
+  }, 1500);
 }
 
-// function startComputerGames(questions) {
-//   clearPage();
-// }
+function displayComputerQuestions() {
+  displayQuestionsByCategory("computerscience");
+}
+
+function displayGamesQuestions() {
+  displayQuestionsByCategory("computergames");
+}
+
+async function displayQuestionsByCategory(category) {
+  const questionsData = await fetchQuestions();
+  const questions = questionsData[category];
+  startQuizCategory(
+    questions,
+    category === "computerscience" ? "Computer Science" : "Computer Games"
+  );
+}
 
 // To display questions
 function displayQuestions(questions) {
   clearPage();
 
   if (currentQuestionIndex >= questions.length) {
-    let stopQuizContainer = document.createElement("div");
-    let stopQuizHeadline = document.createElement("h3");
-    stopQuizHeadline.textContent = "Quiz complete!";
-    stopQuizContainer.appendChild(stopQuizHeadline);
-    appContainer.appendChild(stopQuizContainer);
-    console.log("Quiz complete!"); // Here you could show results or reset the quiz
+    showQuizCompletion();
     return;
   }
 
@@ -83,18 +99,15 @@ function displayQuestions(questions) {
   questionText.textContent = `${currentQuestionIndex + 1}. ${
     question.question
   }`;
-  console.log(question.question);
+
   let optionsList = document.createElement("ul");
 
-  //Going through the answer options for the current question
   question.options.forEach((option) => {
     let optionItem = document.createElement("li");
     optionItem.textContent = option;
-
     optionItem.addEventListener("click", () => {
-      checkAnswer(option, question.correctAnswer);
+      checkAnswer(option, question.correctAnswer, questions);
     });
-
     optionsList.appendChild(optionItem);
   });
 
@@ -110,17 +123,18 @@ function checkAnswer(selectedOption, correctAnswer, questions) {
     console.log("Wrong answer!");
   }
   currentQuestionIndex++;
-  displayComputerQuestions(questions);
+  displayQuestions(questions);
 }
 
-async function displayComputerQuestions() {
-  const questionsData = await fetchQuestions();
-  const questions = questionsData.computerscience;
-  startComputerScience(questions);
-}
-
-async function displayGamesQuestions() {
-  const questionsData = await fetchQuestions();
-  const questions = questionsData.computergames;
-  startComputerGames(questions);
+function showQuizCompletion() {
+  let stopQuizContainer = document.createElement("div");
+  let stopQuizHeadline = document.createElement("h3");
+  stopQuizHeadline.textContent = "Quiz complete!";
+  stopQuizContainer.appendChild(stopQuizHeadline);
+  appContainer.appendChild(stopQuizContainer);
+  console.log("Quiz complete!");
+  setTimeout(() => {
+    stopQuizContainer.remove();
+    startQuiz();
+  }, 2000);
 }
