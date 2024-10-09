@@ -101,6 +101,11 @@ function displayQuestions(questions) {
     question.question
   }`;
 
+  //Created div with timer, added class and text content as default value 10 seconds.
+  let timerDiv = document.createElement("div");
+  timerDiv.classList.add("timer");
+  timerDiv.textContent = "Time left: 10 seconds";
+
   let optionsList = document.createElement("ul");
 
   question.options.forEach((option) => {
@@ -127,19 +132,27 @@ function displayQuestions(questions) {
   });
   questionDiv.appendChild(questionText);
   questionDiv.appendChild(optionsList);
+  questionDiv.appendChild(timerDiv);
   appContainer.appendChild(questionDiv);
 
-  countdownInterval = startTimer(3, () => {
-    currentQuestionIndex++;
-    displayQuestions(questions);
-  });
+  //So that I have 10 secounds total, it updates from 9.
+  countdownInterval = startTimer(
+    //9 sec - duration, () - onComplete, timedDiv - is created element above
+    9,
+    () => {
+      currentQuestionIndex++;
+      displayQuestions(questions);
+    },
+    timerDiv
+  );
 }
 
-//Timer function with parameters duration and anonym function onComplete(), I used it in displayFunctions();
-function startTimer(duration, onComplete) {
-  let timerDiv = document.createElement("div");
-  timerDiv.classList.add("timer");
-  appContainer.appendChild(timerDiv);
+//Timer function with parameters duration and anonym function onComplete(), i also put timerDiv in the function as parameter
+//I used it in displayFunctions();
+function startTimer(duration, onComplete, timerDiv) {
+  // let timerDiv = document.createElement("div");
+  // timerDiv.classList.add("timer");
+  // appContainer.appendChild(timerDiv);
 
   let timeLeft = duration;
   countdownInterval = setInterval(() => {
