@@ -106,6 +106,7 @@ function displayQuestions(questions) {
     let optionItem = document.createElement("li");
     optionItem.textContent = option;
     optionItem.addEventListener("click", () => {
+      //Remove timer with global function clearTimeout()
       checkAnswer(option, question.correctAnswer, questions);
     });
     optionsList.appendChild(optionItem);
@@ -114,6 +115,33 @@ function displayQuestions(questions) {
   questionDiv.appendChild(questionText);
   questionDiv.appendChild(optionsList);
   appContainer.appendChild(questionDiv);
+
+  let countdownInterval = startTimer(10, () => {
+    currentQuestionIndex++;
+    displayQuestions(questions);
+  });
+}
+
+//timer function with parameters duration and anonym function onComplete(), I used it in displayFunctions();
+function startTimer(duration, onComplete) {
+  let timerDiv = document.createElement("div");
+  timerDiv.classList.add("timer");
+  appContainer.appendChild(timerDiv);
+
+  let timeLeft = duration;
+  let countdownInterval = setInterval(() => {
+    timerDiv.textContent = `Time left: ${timeLeft} seconds`;
+    timeLeft--;
+
+    if (timeLeft < 0) {
+      //Stop timer with global function clearInterval();
+      clearInterval(countdownInterval);
+      //Show next questions;
+      onComplete();
+    }
+  }, 1000);
+
+  return countdownInterval;
 }
 
 function checkAnswer(selectedOption, correctAnswer, questions) {
@@ -122,8 +150,10 @@ function checkAnswer(selectedOption, correctAnswer, questions) {
   } else {
     console.log("Wrong answer!");
   }
-  currentQuestionIndex++;
-  displayQuestions(questions);
+  setTimeout(() => {
+    currentQuestionIndex++;
+    displayQuestions(questions);
+  }, 2000);
 }
 
 function showQuizCompletion() {
