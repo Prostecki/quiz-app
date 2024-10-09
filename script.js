@@ -30,8 +30,8 @@ function startQuiz() {
   welcomeSection.remove();
   appContainer.classList.add("isActive");
 
-  let currentQuestionIndex = 0;
-  let currentQuestionPoints = 0;
+  // let currentQuestionIndex = 0;
+  // let currentQuestionPoints = 0;
 
   createCategoryButton(
     "Computer Science",
@@ -112,27 +112,29 @@ function displayQuestions(questions) {
   timerDiv.textContent = "Time left: 10 seconds";
 
   let optionsList = document.createElement("ul");
+  let isAnswered = false;
 
   question.options.forEach((option) => {
     let optionItem = document.createElement("li");
     optionItem.textContent = option;
     optionItem.addEventListener("click", () => {
-      //Function to check answer
-      checkAnswer(option, question.correctAnswer, questions);
-
-      //After clicked the answer, you can't choose another
-      optionsList.querySelectorAll("li").forEach((item) => {
-        item.style.pointerEvents = "none";
-      });
-
-      //Add border green if chosen option === correctAnswer
-      if (option === question.correctAnswer) {
-        optionItem.classList.add("correct-answer");
-        pointsContainer.textContent = `Total points: ${(currentQuestionPoints =
-          currentQuestionPoints + 1)}`;
-      } else {
-        optionItem.classList.add("not-correct-answer");
-        currentQuestionIndex++;
+      if (!isAnswered) {
+        clearInterval(countdownInterval);
+        //Function to check answer
+        checkAnswer(option, question.correctAnswer, questions);
+        //After clicked the answer, you can't choose another
+        optionsList.querySelectorAll("li").forEach((item) => {
+          item.style.pointerEvents = "none";
+        });
+        isAnswered = true;
+        //Add border green if chosen option === correctAnswer
+        if (option === question.correctAnswer) {
+          optionItem.classList.add("correct-answer");
+          currentQuestionPoints++;
+        } else {
+          optionItem.classList.add("not-correct-answer");
+        }
+        pointsContainer.textContent = `Total points: ${currentQuestionPoints}`;
       }
     });
     optionsList.appendChild(optionItem);
@@ -144,11 +146,24 @@ function displayQuestions(questions) {
 
   //So that I have 10 secounds total, it updates from 9.
   countdownInterval = startTimer(
-    //9 sec - duration, () - onComplete, timedDiv - is created element above
-    9,
+    // sec - duration, () - onComplete, timedDiv - is created element above
+    5,
     () => {
-      currentQuestionIndex++;
-      displayQuestions(questions);
+      if (!isAnswered) {
+        optionsList.querySelectorAll("li").forEach((item) => {
+          item.style.pointerEvents = "none";
+        });
+        console.log("Time is up! Moving to the next question.");
+        isAnswered = true;
+        currentQuestionIndex++;
+        displayQuestions(questions);
+        // // Check if we need to show the completion screen
+        // if (currentQuestionIndex >= questions.length) {
+        //   showQuizCompletion();
+        // } else {
+
+        // }
+      }
     },
     timerDiv
   );
@@ -157,44 +172,46 @@ function displayQuestions(questions) {
 //Timer function with parameters duration and anonym function onComplete(), i also put timerDiv in the function as parameter
 //I used it in displayFunctions();
 function startTimer(duration, onComplete, timerDiv) {
-  // let timerDiv = document.createElement("div");
-  // timerDiv.classList.add("timer");
-  // appContainer.appendChild(timerDiv);
-
   let timeLeft = duration;
+  timerDiv.textContent = `Time left: ${timeLeft + 1} seconds`;
+
   countdownInterval = setInterval(() => {
-    timerDiv.textContent = `Time left: ${timeLeft} seconds`;
     timeLeft--;
+    timerDiv.textContent = `Time left: ${timeLeft} seconds`;
 
     if (timeLeft < 0) {
       //Stop timer with global function clearInterval();
       clearInterval(countdownInterval);
-
       //Show next questions;
       onComplete();
-      countdownInterval = null;
     }
   }, 1000);
 
   //To get a result after executing the function, that is 0 (null)
-  return countdownInterval;
+  // return countdownInterval;
 }
 
 function checkAnswer(selectedOption, correctAnswer, questions) {
   //stop timer
   clearInterval(countdownInterval);
 
-  //Write in value null after checking an answer
-  countdownInterval = null;
-  if (selectedOption === correctAnswer) {
-    console.log("Correct!", correctAnswer);
-    currentQuestionIndex++;
-  } else {
+  if (selectedOption !== correctAnswer) {
     console.log("Wrong answer!");
+  } else {
+    console.log("Correct!", correctAnswer);
   }
   //After 1,5 sec goes next question
   setTimeout(() => {
-    displayQuestions(questions);
+    currentQuestionIndex++;
+    console.log(
+      "Moving to the next question. Current index:",
+      currentQuestionIndex
+    );
+    if (currentQuestionIndex < questions.length) {
+      displayQuestions(questions);
+    } else {
+      showQuizCompletion();
+    }
   }, 2000);
 }
 
@@ -217,7 +234,11 @@ function showQuizCompletion() {
   appContainer.appendChild(stopQuizContainer);
   console.log("Quiz complete!");
 
-  startAgain.addEventListener("click", startQuiz);
+  startAgain.addEventListener("click", () => {
+    currentQuestionIndex = 0;
+    currentQuestionPoints = 0;
+    startQuiz();
+  });
   leaveButton.addEventListener("click", () => {
     stopQuizContainer.remove();
     startAgain.remove();
