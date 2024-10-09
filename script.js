@@ -10,6 +10,8 @@ let countdownInterval;
 const appContainer = document.querySelector(".app-container");
 const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
+const startAgain = document.createElement("button");
+const leaveButton = document.createElement("button");
 
 startButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -95,11 +97,14 @@ function displayQuestions(questions) {
   }
 
   const question = questions[currentQuestionIndex];
+  const pointsContainer = document.createElement("h2");
+  pointsContainer.textContent = `Total points: ${currentQuestionPoints}`;
   let questionDiv = document.createElement("div");
   let questionText = document.createElement("h3");
   questionText.textContent = `${currentQuestionIndex + 1}. ${
     question.question
   }`;
+  questionDiv.appendChild(pointsContainer);
 
   //Created div with timer, added class and text content as default value 10 seconds.
   let timerDiv = document.createElement("div");
@@ -123,6 +128,8 @@ function displayQuestions(questions) {
       //Add border green if chosen option === correctAnswer
       if (option === question.correctAnswer) {
         optionItem.classList.add("correct-answer");
+        pointsContainer.textContent = `Total points: ${(currentQuestionPoints =
+          currentQuestionPoints + 1)}`;
       } else {
         optionItem.classList.add("not-correct-answer");
         currentQuestionIndex++;
@@ -194,13 +201,31 @@ function checkAnswer(selectedOption, correctAnswer, questions) {
 function showQuizCompletion() {
   let stopQuizContainer = document.createElement("div");
   let stopQuizHeadline = document.createElement("h3");
-  stopQuizHeadline.textContent = "Quiz complete!";
+  // let startAgain = document.createElement("button");
+  // let leaveButton = document.createElement("button");
+
+  startAgain.classList.add("start-again-button");
+  leaveButton.classList.add("leave-button");
+
+  startAgain.textContent = "Start again!";
+  leaveButton.textContent = "Leave Quiz";
+
+  stopQuizHeadline.textContent = `Congratulations, quiz complete! You earned ${currentQuestionPoints} points!`;
   stopQuizContainer.appendChild(stopQuizHeadline);
+  stopQuizContainer.appendChild(startAgain);
+  stopQuizContainer.appendChild(leaveButton);
   appContainer.appendChild(stopQuizContainer);
   console.log("Quiz complete!");
 
-  setTimeout(() => {
+  startAgain.addEventListener("click", startQuiz);
+  leaveButton.addEventListener("click", () => {
     stopQuizContainer.remove();
-    startQuiz();
-  }, 2000);
+    startAgain.remove();
+    leaveButton.remove();
+  });
+
+  // setTimeout(() => {
+  //   stopQuizContainer.remove();
+  //   startQuiz();
+  // }, 2000);
 }

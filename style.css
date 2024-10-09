@@ -173,6 +173,18 @@ body {
   text-align: center;
 }
 
+.start-again-button {
+  width: 50px;
+  padding: 5px;
+  background-color: greenyellow;
+}
+
+.leave-button {
+  width: 50px;
+  padding: 5px;
+  background-color: grey;
+}
+
 @media (max-width: 750px) {
   body {
     width: 100%;
