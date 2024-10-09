@@ -109,6 +109,12 @@ function displayQuestions(questions) {
     optionItem.addEventListener("click", () => {
       //Function to check answer
       checkAnswer(option, question.correctAnswer, questions);
+
+      //After clicked the answer, you can't choose another
+      optionsList.querySelectorAll("li").forEach((item) => {
+        item.style.pointerEvents = "none";
+      });
+
       //Add border green if chosen option === correctAnswer
       if (option === question.correctAnswer) {
         optionItem.classList.add("correct-answer");
@@ -119,18 +125,17 @@ function displayQuestions(questions) {
     });
     optionsList.appendChild(optionItem);
   });
-
   questionDiv.appendChild(questionText);
   questionDiv.appendChild(optionsList);
   appContainer.appendChild(questionDiv);
 
-  countdownInterval = startTimer(10, () => {
+  countdownInterval = startTimer(3, () => {
     currentQuestionIndex++;
     displayQuestions(questions);
   });
 }
 
-//timer function with parameters duration and anonym function onComplete(), I used it in displayFunctions();
+//Timer function with parameters duration and anonym function onComplete(), I used it in displayFunctions();
 function startTimer(duration, onComplete) {
   let timerDiv = document.createElement("div");
   timerDiv.classList.add("timer");
@@ -144,6 +149,7 @@ function startTimer(duration, onComplete) {
     if (timeLeft < 0) {
       //Stop timer with global function clearInterval();
       clearInterval(countdownInterval);
+
       //Show next questions;
       onComplete();
       countdownInterval = null;
@@ -169,7 +175,7 @@ function checkAnswer(selectedOption, correctAnswer, questions) {
   //After 1,5 sec goes next question
   setTimeout(() => {
     displayQuestions(questions);
-  }, 1500);
+  }, 2000);
 }
 
 function showQuizCompletion() {
