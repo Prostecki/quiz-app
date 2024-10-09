@@ -161,6 +161,14 @@ body {
   font-size: 1.5rem;
 }
 
+.correct-answer {
+  border: 2px solid green;
+}
+
+.not-correct-answer {
+  border: 2px solid red;
+}
+
 .finish-headline {
   text-align: center;
 }

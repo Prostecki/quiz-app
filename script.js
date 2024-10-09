@@ -107,7 +107,15 @@ function displayQuestions(questions) {
     let optionItem = document.createElement("li");
     optionItem.textContent = option;
     optionItem.addEventListener("click", () => {
+      //Function to check answer
       checkAnswer(option, question.correctAnswer, questions);
+      //Add border green if chosen option === correctAnswer
+      if (option === question.correctAnswer) {
+        optionItem.classList.add("correct-answer");
+      } else {
+        optionItem.classList.add("not-correct-answer");
+        currentQuestionIndex++;
+      }
     });
     optionsList.appendChild(optionItem);
   });
@@ -149,18 +157,17 @@ function startTimer(duration, onComplete) {
 function checkAnswer(selectedOption, correctAnswer, questions) {
   //stop timer
   clearInterval(countdownInterval);
-  //Write in value null after checking an answer
 
+  //Write in value null after checking an answer
   countdownInterval = null;
   if (selectedOption === correctAnswer) {
-    console.log("Correct!");
+    console.log("Correct!", correctAnswer);
     currentQuestionIndex++;
   } else {
     console.log("Wrong answer!");
   }
   //After 1,5 sec goes next question
   setTimeout(() => {
-    currentQuestionIndex++;
     displayQuestions(questions);
   }, 1500);
 }
