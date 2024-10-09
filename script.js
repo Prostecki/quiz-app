@@ -4,6 +4,7 @@ import { fetchQuestions } from "./fetchquestions.js";
 // Variable to keep track of the current question index and points of right answers
 let currentQuestionIndex = 0;
 let currentQuestionPoints = 0;
+let countdownInterval;
 
 //app container where i store all questions
 const appContainer = document.querySelector(".app-container");
@@ -106,7 +107,6 @@ function displayQuestions(questions) {
     let optionItem = document.createElement("li");
     optionItem.textContent = option;
     optionItem.addEventListener("click", () => {
-      //Remove timer with global function clearTimeout()
       checkAnswer(option, question.correctAnswer, questions);
     });
     optionsList.appendChild(optionItem);
@@ -116,7 +116,7 @@ function displayQuestions(questions) {
   questionDiv.appendChild(optionsList);
   appContainer.appendChild(questionDiv);
 
-  let countdownInterval = startTimer(10, () => {
+  countdownInterval = startTimer(10, () => {
     currentQuestionIndex++;
     displayQuestions(questions);
   });
@@ -129,7 +129,7 @@ function startTimer(duration, onComplete) {
   appContainer.appendChild(timerDiv);
 
   let timeLeft = duration;
-  let countdownInterval = setInterval(() => {
+  countdownInterval = setInterval(() => {
     timerDiv.textContent = `Time left: ${timeLeft} seconds`;
     timeLeft--;
 
@@ -138,22 +138,31 @@ function startTimer(duration, onComplete) {
       clearInterval(countdownInterval);
       //Show next questions;
       onComplete();
+      countdownInterval = null;
     }
   }, 1000);
 
+  //To get a result after executing the function, that is 0 (null)
   return countdownInterval;
 }
 
 function checkAnswer(selectedOption, correctAnswer, questions) {
+  //stop timer
+  clearInterval(countdownInterval);
+  //Write in value null after checking an answer
+
+  countdownInterval = null;
   if (selectedOption === correctAnswer) {
     console.log("Correct!");
+    currentQuestionIndex++;
   } else {
     console.log("Wrong answer!");
   }
+  //After 1,5 sec goes next question
   setTimeout(() => {
     currentQuestionIndex++;
     displayQuestions(questions);
-  }, 2000);
+  }, 1500);
 }
 
 function showQuizCompletion() {
@@ -163,6 +172,7 @@ function showQuizCompletion() {
   stopQuizContainer.appendChild(stopQuizHeadline);
   appContainer.appendChild(stopQuizContainer);
   console.log("Quiz complete!");
+
   setTimeout(() => {
     stopQuizContainer.remove();
     startQuiz();
