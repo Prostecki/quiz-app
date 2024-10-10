@@ -153,11 +153,18 @@ function handleAnswer(
   } else {
     optionItem.classList.add("not-correct-answer");
     optionItem.classList.add("wrong");
+
+    optionsList.querySelectorAll("li").forEach((item) => {
+      if (item.textContent === correctAnswer) {
+        item.classList.add("correct-answer");
+      }
+    });
   }
 
   optionsList
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
+
   setTimeout(() => {
     currentQuestionIndex++;
     displayQuestions(questions);

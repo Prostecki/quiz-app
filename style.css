@@ -80,12 +80,21 @@ body {
   transform: scale(1.05);
 }
 
-.quiz-image {
-  width: 100%;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+.question-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
 .computer-science,
 .computer-games {
   padding: 15px;
