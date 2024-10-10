@@ -292,14 +292,23 @@ li:hover {
   opacity: 1;
 }
 
+.option {
+  outline: none;
+}
+
+.option:focus {
+  outline: none;
+}
+
+button:focus,
+li:focus {
+  outline: none;
+}
+
 /* Media Queries for Larger Screens */
 @media (max-width: 768px) {
   .app-container {
     width: 70%;
-  }
-
-  .option:focus {
-    outline: none;
   }
 
   .start-button,
