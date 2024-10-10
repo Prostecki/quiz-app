@@ -105,7 +105,7 @@ function displayQuestions(questions) {
     question.question
   }`;
   timerDiv.classList.add("timer");
-  timerDiv.textContent = "Time left: 10 seconds";
+  timerDiv.textContent = "Time left: 10 seconds...";
 
   isAnswered = false;
 
@@ -114,7 +114,7 @@ function displayQuestions(questions) {
     const optionItem = document.createElement("li");
     optionItem.classList.add("option");
     optionItem.textContent = option;
-    optionItem.addEventListener("touchend", () =>
+    optionItem.addEventListener("click", () =>
       handleAnswer(
         option,
         question.correctAnswer,
@@ -147,9 +147,6 @@ function handleAnswer(
 
   optionItem.classList.add("clicked");
 
-  // to remove focus on an element ???
-  optionItem.blur();
-
   if (selectedOption === correctAnswer) {
     currentQuestionPoints++;
     optionItem.classList.add("correct-answer");
@@ -168,9 +165,6 @@ function handleAnswer(
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
 
-  setTimeout(() => {
-    optionItem.blur();
-  }, 100);
   setTimeout(() => {
     currentQuestionIndex++;
     displayQuestions(questions);
@@ -201,7 +195,7 @@ function startTimer(duration, onComplete, timerDiv) {
     }
 
     timeLeft--;
-    timerDiv.textContent = `Time left: ${timeLeft} seconds`;
+    timerDiv.textContent = `Time left: ${timeLeft} seconds...`;
 
     if (timeLeft < 0) {
       console.log("Time is up! Moving to the next question.");

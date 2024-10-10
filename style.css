@@ -95,6 +95,26 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+.question-container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  transition: transform 0.3s;
+  & h2 {
+    font-size: 1.2rem;
+    margin: 0 0 25px;
+  }
+  & h3 {
+    font-size: 1.2rem;
+    margin: 0 0 25px;
+  }
+  .timer {
+    margin: 25px 0 0;
+  }
+}
+
 .computer-science,
 .computer-games {
   padding: 15px;
@@ -260,9 +280,9 @@ li {
   transition: background-color 0.3s;
 }
 
-li:hover {
+/* li:hover {
   background-color: #e2e2e2;
-}
+} */
 
 .option {
   position: relative;
@@ -290,19 +310,6 @@ li:hover {
 
 .option:hover::after {
   opacity: 1;
-}
-
-.option {
-  outline: none;
-}
-
-.option:focus {
-  outline: none;
-}
-
-button:focus,
-li:focus {
-  outline: none;
 }
 
 /* Media Queries for Larger Screens */
