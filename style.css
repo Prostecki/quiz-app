@@ -7,10 +7,9 @@ html {
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: weight;
-  font-style: normal;
+  font-weight: normal;
 }
 
 body {
@@ -23,7 +22,8 @@ body {
 }
 
 .app-container {
-  width: 30rem;
+  width: 90%;
+  max-width: 400px;
   display: none;
 }
 
@@ -36,66 +36,118 @@ body {
 }
 
 .welcome-section {
-  width: 300px;
-  background-color: rgb(99, 99, 99);
+  width: 50%;
+  background-color: #4a4a4a;
   border-radius: 15px;
-  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.303);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 30px;
   color: white;
+  position: relative; /* For image positioning */
 }
 
-.welcome-section article {
-  margin: 25px 0;
+.welcome-content {
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 2.5rem; /* Large title */
+  font-weight: bold;
+  margin-bottom: 10px; /* Space below the title */
+}
+
+.welcome-description {
+  font-size: 1.2rem; /* Description font size */
+  margin-bottom: 20px; /* Space above the button */
 }
 
 .start-button {
-  padding: 5px;
-  margin: 0 0 15px;
-  width: 100px;
-  border-radius: 15px;
+  padding: 12px 20px;
+  border-radius: 10px;
   border: none;
-  color: black;
+  background-color: #007bff; /* Button color */
+  color: white;
+  font-size: 1.2rem;
   font-weight: bold;
-  font-size: 1rem;
   cursor: pointer;
-  transition: 0.5s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .start-button:hover {
-  background: #a6a6a69f;
-  transition: 0.5s;
-  color: white;
+  background: #0056b3; /* Darker shade on hover */
+  transform: scale(1.05); /* Slight enlargement on hover */
+}
+
+.quiz-image {
+  width: 100%;
+  height: auto; /* Responsive image */
+  border-radius: 15px; /* Rounded corners for the image */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+}
+.computer-science,
+.computer-games {
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .computer-science {
-  background-color: lightblue;
-  border-left: 5px solid blue;
-  padding: 10px;
-  margin: 10px 0;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  transition: 0.3s;
-  &:hover {
-    background-color: grey;
-    transition: 0.3s;
-  }
+  background-color: #e0f7fa;
+  border-left: 5px solid #007bff;
+}
+
+.computer-science:hover {
+  background-color: #b0bec5;
+  transform: scale(1.05);
 }
 
 .computer-games {
-  background-color: lightgreen;
-  border-left: 5px solid green;
-  padding: 10px;
-  margin: 10px 0;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  transition: 0.3s;
-  &:hover {
-    background-color: red;
-    transition: 0.3s;
-  }
+  background-color: #d1e7dd;
+  border-left: 5px solid #28a745;
+}
+
+.computer-games:hover {
+  background-color: #dc3545;
+  transform: scale(1.05);
+}
+
+.greetings-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+}
+
+.greetings-headline {
+  color: #007bff;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.greetings-paragraph {
+  color: #333;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.slide-up {
+  transform: translateY(0);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 1;
+}
+
+.slide-up.hidden {
+  transform: translateY(-20px);
+  opacity: 0;
 }
 
 .quiz-point-counter {
@@ -112,11 +164,8 @@ body {
 }
 
 .quiz-window {
-  position: relative;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto;
-  /* min-width: 30rem; */
+  grid-template-columns: 1fr;
   gap: 15px;
   background-color: grey;
   padding: 20px;
@@ -126,7 +175,6 @@ body {
 }
 
 .quiz-question {
-  grid-column: span 2;
   text-align: center;
   margin: 10px 0 10px;
   padding: 5px;
@@ -136,7 +184,7 @@ body {
   width: 95%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12);
   border-radius: 5px;
-  padding: 5px;
+  padding: 10px;
   text-align: center;
   border: 0.5px solid white;
   cursor: pointer;
@@ -148,14 +196,10 @@ body {
 }
 
 .quiz-right {
-  position: absolute;
-  width: 400px;
+  width: 100%;
   background-color: green;
   color: white;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.303);
-  top: 8rem;
-  left: 1rem;
-  z-index: 1;
   text-align: center;
   line-height: 50px;
   font-size: 1.5rem;
@@ -173,52 +217,107 @@ body {
   text-align: center;
 }
 
+.start-again-button,
+.leave-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  color: white;
+}
+
 .start-again-button {
-  width: 50px;
-  padding: 5px;
   background-color: greenyellow;
 }
 
 .leave-button {
-  width: 50px;
-  padding: 5px;
   background-color: grey;
 }
 
-@media (max-width: 750px) {
-  body {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+li:hover {
+  background-color: #e2e2e2;
+}
+
+.option {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+}
+
+.option:hover {
+  background-color: #f0f0f0;
+}
+
+.option::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.option:hover::after {
+  opacity: 1;
+}
+
+/* Media Queries for Larger Screens */
+@media (max-width: 768px) {
+  .app-container {
+    width: 70%;
   }
-  #app-container {
-    width: 80%;
-    /* background-color: grey; */
-    text-align: center;
-    padding: 15px;
-    border-radius: 15px;
+
+  .start-button,
+  .computer-science,
+  .computer-games,
+  .start-again-button,
+  .leave-button {
+    max-width: 100%;
   }
+
+  .welcome-section {
+    width: 85%;
+  }
+
+  .welcome-section article {
+    font-size: 2rem;
+  }
+
+  .greetings-headline {
+    font-size: 1.5rem;
+  }
+
+  .greetings-paragraph {
+    font-size: 1.5rem;
+  }
+
   .quiz-window {
-    max-width: 85%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    grid-template-columns: 1fr 1fr;
   }
-  .quiz-question {
-    max-width: max-content;
-    text-align: center;
-    grid-column: span 2;
-  }
+
   .quiz-choice {
-    width: 95%;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
-    text-align: center;
-  }
-  .quiz-right {
-    max-width: 85%;
-    font-size: 1rem;
+    width: 100%;
   }
 }

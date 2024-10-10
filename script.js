@@ -62,19 +62,25 @@ function startQuizCategory(questions, categoryTitle) {
   clearPage();
 
   const greetingsBox = document.createElement("div");
-  greetingsBox.classList.add("center-text");
+  greetingsBox.classList.add("greetings-box", "slide-up");
 
   const greetingsHeadline = document.createElement("h2");
+  greetingsHeadline.classList.add("greetings-headline");
   greetingsHeadline.textContent = `Welcome to ${categoryTitle} questions!`;
 
   const greetingsParagraph = document.createElement("p");
+  greetingsParagraph.classList.add("greetings-paragraph");
   greetingsParagraph.textContent = "Let's get started!";
 
   greetingsBox.append(greetingsHeadline, greetingsParagraph);
   appContainer.appendChild(greetingsBox);
 
   setTimeout(() => {
-    displayQuestions(questions);
+    greetingsBox.classList.add("hidden");
+    setTimeout(() => {
+      displayQuestions(questions);
+      greetingsBox.remove();
+    }, 500);
   }, 1500);
 }
 
@@ -106,6 +112,7 @@ function displayQuestions(questions) {
   // Creating and adding of options
   question.options.forEach((option) => {
     const optionItem = document.createElement("li");
+    optionItem.classList.add("option");
     optionItem.textContent = option;
     optionItem.addEventListener("click", () =>
       handleAnswer(
@@ -138,11 +145,14 @@ function handleAnswer(
   isAnswered = true;
   clearInterval(countdownInterval);
 
+  optionItem.classList.add("clicked");
+
   if (selectedOption === correctAnswer) {
     currentQuestionPoints++;
     optionItem.classList.add("correct-answer");
   } else {
     optionItem.classList.add("not-correct-answer");
+    optionItem.classList.add("wrong");
   }
 
   optionsList
@@ -159,7 +169,11 @@ function handleTimeout(optionsList, questions) {
   optionsList
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
-  console.log("Time is up! Moving to the next question.");
+  const question = questions[currentQuestionIndex];
+  const messageDiv = document.createElement("div");
+  messageDiv.textContent = `Time is up! Correct answer is ${question.correctAnswer}`;
+  // console.log("Time is up! Moving to the next question.");
+  appContainer.appendChild(messageDiv);
   currentQuestionIndex++;
   displayQuestions(questions);
 }
@@ -177,6 +191,7 @@ function startTimer(duration, onComplete, timerDiv) {
     timerDiv.textContent = `Time left: ${timeLeft} seconds`;
 
     if (timeLeft < 0) {
+      console.log("Time is up! Moving to the next question.");
       clearInterval(countdownInterval);
       onComplete();
     }
