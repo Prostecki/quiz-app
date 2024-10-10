@@ -145,6 +145,7 @@ function handleAnswer(
   isAnswered = true;
   clearInterval(countdownInterval);
 
+  // to remove focus on an element ???
   optionItem.blur();
 
   optionItem.classList.add("clicked");
@@ -167,6 +168,9 @@ function handleAnswer(
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
 
+  setTimeout(() => {
+    optionItem.blur();
+  }, 100);
   setTimeout(() => {
     currentQuestionIndex++;
     displayQuestions(questions);
