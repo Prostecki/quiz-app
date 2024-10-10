@@ -321,3 +321,9 @@ li:hover {
     width: 100%;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  .option:focus {
+    outline: none; /* Отключаем фокус */
+  }
+}
