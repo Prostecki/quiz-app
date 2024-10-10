@@ -114,7 +114,7 @@ function displayQuestions(questions) {
     const optionItem = document.createElement("li");
     optionItem.classList.add("option");
     optionItem.textContent = option;
-    optionItem.addEventListener("click", () =>
+    optionItem.addEventListener("touchend", () =>
       handleAnswer(
         option,
         question.correctAnswer,
