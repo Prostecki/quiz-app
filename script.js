@@ -145,10 +145,10 @@ function handleAnswer(
   isAnswered = true;
   clearInterval(countdownInterval);
 
+  optionItem.classList.add("clicked");
+
   // to remove focus on an element ???
   optionItem.blur();
-
-  optionItem.classList.add("clicked");
 
   if (selectedOption === correctAnswer) {
     currentQuestionPoints++;
