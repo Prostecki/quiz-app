@@ -145,6 +145,8 @@ function handleAnswer(
   isAnswered = true;
   clearInterval(countdownInterval);
 
+  optionItem.blur();
+
   optionItem.classList.add("clicked");
 
   if (selectedOption === correctAnswer) {

@@ -298,6 +298,10 @@ li:hover {
     width: 70%;
   }
 
+  .option:focus {
+    outline: none;
+  }
+
   .start-button,
   .computer-science,
   .computer-games,
