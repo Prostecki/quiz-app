@@ -45,7 +45,7 @@ body {
   align-items: center;
   padding: 30px;
   color: white;
-  position: relative; /* For image positioning */
+  position: relative;
 }
 
 .welcome-content {
@@ -53,21 +53,21 @@ body {
 }
 
 .welcome-title {
-  font-size: 2.5rem; /* Large title */
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 10px; /* Space below the title */
+  margin-bottom: 10px;
 }
 
 .welcome-description {
-  font-size: 1.2rem; /* Description font size */
-  margin-bottom: 20px; /* Space above the button */
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 .start-button {
   padding: 12px 20px;
   border-radius: 10px;
   border: none;
-  background-color: #007bff; /* Button color */
+  background-color: #007bff;
   color: white;
   font-size: 1.2rem;
   font-weight: bold;
@@ -76,15 +76,15 @@ body {
 }
 
 .start-button:hover {
-  background: #0056b3; /* Darker shade on hover */
-  transform: scale(1.05); /* Slight enlargement on hover */
+  background: #0056b3;
+  transform: scale(1.05);
 }
 
 .quiz-image {
   width: 100%;
-  height: auto; /* Responsive image */
-  border-radius: 15px; /* Rounded corners for the image */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 .computer-science,
 .computer-games {
@@ -319,11 +319,5 @@ li:hover {
 
   .quiz-choice {
     width: 100%;
-  }
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .option:focus {
-    outline: none; /* Отключаем фокус */
   }
 }
