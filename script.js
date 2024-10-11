@@ -6,6 +6,7 @@ let currentQuestionPoints = 0;
 let countdownInterval;
 let isQuizCompleted = false;
 let isAnswered = false;
+let answerGiven = false;
 
 const appContainer = document.querySelector(".app-container");
 const startButton = document.querySelector(".start-button");
@@ -99,6 +100,9 @@ function displayQuestions(questions) {
     return showQuizCompletion();
   }
 
+  isAnswered = false;
+  answerGiven = false;
+
   const { question, options, correctAnswer } = questions[currentQuestionIndex];
 
   clearPage();
@@ -138,7 +142,14 @@ function displayQuestions(questions) {
   options.forEach((option) => {
     const optionItem = createElement("li", "option", option);
     optionItem.addEventListener("click", () =>
-      handleAnswer(option, correctAnswer, questions, optionItem, optionsList)
+      handleAnswer(
+        option,
+        correctAnswer,
+        questions,
+        optionItem,
+        optionsList,
+        nextQueButton
+      )
     );
     optionsList.appendChild(optionItem);
   });
@@ -154,7 +165,16 @@ function displayQuestions(questions) {
   );
   appContainer.appendChild(questionDiv);
 
-  startTimer(10, () => handleTimeout(optionsList, questions), timerDiv);
+  nextQueButton.addEventListener("click", () => {
+    console.log("CLICKED????");
+    goToNextQuestion(questions);
+  });
+
+  startTimer(
+    10,
+    () => handleTimeout(optionsList, questions, nextQueButton),
+    timerDiv
+  );
 }
 
 // When u choose an answer
@@ -163,11 +183,17 @@ function handleAnswer(
   correctAnswer,
   questions,
   optionItem,
-  optionsList
+  optionsList,
+  nextQueButton
 ) {
   if (isAnswered) return;
 
   isAnswered = true;
+
+  answerGiven = true;
+
+  console.log("Answer given status:", answerGiven);
+
   clearInterval(countdownInterval);
 
   optionItem.classList.add("clicked");
@@ -178,7 +204,7 @@ function handleAnswer(
     currentQuestionPoints++;
     setClass(optionItem, "correct-answer");
   } else {
-    setClass(optionItem, "wrong");
+    setClass(optionItem, "not-correct-answer");
     optionsList.querySelectorAll("li").forEach((item) => {
       if (item.textContent === correctAnswer) {
         setClass(item, "correct-answer");
@@ -190,14 +216,31 @@ function handleAnswer(
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
 
-  setTimeout(() => {
-    currentQuestionIndex++;
+  nextQueButton.disabled = false;
+  console.log("Next question button enabled");
+}
+
+function goToNextQuestion(questions) {
+  console.log("Answer given before checking:", answerGiven);
+
+  if (!answerGiven) {
+    console.log("no answer given, cannot go to next question");
+    return;
+  }
+
+  answerGiven = false;
+  currentQuestionIndex++;
+  console.log("Current Question Index:", currentQuestionIndex);
+
+  if (currentQuestionIndex < questions.length) {
     displayQuestions(questions);
-  }, 1500);
+  } else {
+    showQuizCompletion();
+  }
 }
 
 // Handle of time remaining
-function handleTimeout(optionsList, questions) {
+function handleTimeout(optionsList, questions, nextQueButton) {
   optionsList
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
@@ -210,6 +253,15 @@ function handleTimeout(optionsList, questions) {
   };
 
   const { correctAnswer } = questions[currentQuestionIndex];
+
+  optionsList.querySelectorAll("li").forEach((item) => {
+    if (item.textContent === correctAnswer) {
+      item.classList.add("correct-answer");
+    } else {
+      item.classList.add("not-correct-answer");
+    }
+  });
+
   console.log(correctAnswer);
   const messageDiv = createElement(
     "div",
@@ -219,10 +271,14 @@ function handleTimeout(optionsList, questions) {
 
   appContainer.appendChild(messageDiv);
 
-  setTimeout(() => {
-    currentQuestionIndex++;
-    displayQuestions(questions);
-  }, 3000);
+  nextQueButton.disabled = false;
+
+  answerGiven = true;
+
+  // currentQuestionIndex++;
+  // displayQuestions(questions);
+  // setTimeout(() => {
+  // }, 3000);
 }
 
 // Timer function
@@ -253,17 +309,21 @@ function showQuizCompletion() {
   clearInterval(countdownInterval);
   isQuizCompleted = true;
 
-  const stopQuizContainer = document.createElement("div");
-  const stopQuizHeadline = document.createElement("h3");
-  const startAgainButton = document.createElement("button");
-  const leaveButton = document.createElement("button");
+  const createElement = (tag, className = "", textContent = "") => {
+    const element = document.createElement(tag);
+    if (className) element.classList.add(className);
+    if (textContent) element.textContent = textContent;
+    return element;
+  };
 
-  stopQuizHeadline.textContent = `Congratulations, quiz complete! You earned ${currentQuestionPoints} points!`;
-  startAgainButton.textContent = "Start again!";
-  leaveButton.textContent = "Leave Quiz";
-
-  startAgainButton.classList.add("start-again-button");
-  leaveButton.classList.add("leave-button");
+  const stopQuizContainer = createElement("div", "stop-quiz-container", "");
+  const stopQuizHeadline = createElement(
+    "h3",
+    "",
+    `Congratulations, quiz complete! You earned ${currentQuestionPoints} points!`
+  );
+  const startAgainButton = createElement("button", "", "Start again!");
+  const leaveButton = createElement("button", "leave-button", "Leave Quiz!");
 
   stopQuizContainer.append(stopQuizHeadline, startAgainButton, leaveButton);
   appContainer.appendChild(stopQuizContainer);

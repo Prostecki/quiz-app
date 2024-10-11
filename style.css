@@ -117,7 +117,8 @@ body::before {
   transition: transform 0.3s;
   & ul {
     & li {
-      color: black;
+      background-color: rgb(22, 26, 66);
+      color: white;
     }
   }
   & h2 {
@@ -263,11 +264,13 @@ body::before {
 }
 
 .correct-answer {
-  border: 2px solid green;
+  border: 3px solid green;
+  color: green;
 }
 
 .not-correct-answer {
-  border: 2px solid red;
+  border: 3px solid red;
+  color: red;
 }
 
 .correct-answer-message {
@@ -351,7 +354,7 @@ li {
 }
 
 .option:hover {
-  background-color: #f0f0f0;
+  background-color: #010b80;
 }
 
 .option::after {
