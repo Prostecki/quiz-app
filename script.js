@@ -112,17 +112,27 @@ function displayQuestions(questions) {
 
   const questionDiv = createElement("div", "question-container");
   const pointsContainer = createElement(
-    "h2",
-    "",
-    `Total points: ${currentQuestionPoints}`
+    "div",
+    "total-score",
+    `Score: ${currentQuestionPoints} / ${questions.length}`
   );
   const questionText = createElement(
     "h3",
     "",
     `${currentQuestionIndex + 1}. ${question}`
   );
-  const timerDiv = createElement("div", "timer", "Time left: 30 seconds...");
+  const timerDiv = createElement("div", "timer", "Time left: 10 seconds...");
   const optionsList = createElement("ul");
+  const nextQueButton = createElement(
+    "button",
+    "next-question-button",
+    "NextQue"
+  );
+  const questionNumber = createElement(
+    "h2",
+    "question-number",
+    `${currentQuestionIndex + 1} of ${questions.length} questions`
+  );
 
   isAnswered = false;
 
@@ -135,7 +145,14 @@ function displayQuestions(questions) {
     optionsList.appendChild(optionItem);
   });
 
-  questionDiv.append(pointsContainer, questionText, optionsList, timerDiv);
+  questionDiv.append(
+    pointsContainer,
+    questionText,
+    optionsList,
+    questionNumber,
+    nextQueButton,
+    timerDiv
+  );
   appContainer.appendChild(questionDiv);
 
   startTimer(10, () => handleTimeout(optionsList, questions), timerDiv);
@@ -199,6 +216,7 @@ function handleTimeout(optionsList, questions) {
     displayQuestions(questions);
   }, 3000);
 }
+
 // Timer function
 function startTimer(duration, onComplete, timerDiv) {
   let timeLeft = duration;
