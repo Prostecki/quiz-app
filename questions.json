@@ -43,7 +43,7 @@
     {
       "question": "Which tag is used to insert images in HTML?",
       "options": ["image", "img", "picture", "src"],
-      "correctAnswer": "<img>"
+      "correctAnswer": "img"
     },
     {
       "question": "What is Flexbox?",
@@ -68,7 +68,7 @@
     {
       "question": "Which HTML tag is used to create lists?",
       "options": ["ul", "list", "ol", "li"],
-      "correctAnswer": "<ul>"
+      "correctAnswer": "ul"
     }
   ],
   "computergames": [

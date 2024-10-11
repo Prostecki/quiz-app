@@ -192,6 +192,10 @@ function handleAnswer(
 
   answerGiven = true;
 
+  console.log("Current Question:", questions[currentQuestionIndex]);
+  console.log("Correct Answer:", correctAnswer);
+  console.log("Options:", optionsList);
+
   console.log("Answer given status:", answerGiven);
 
   clearInterval(countdownInterval);
@@ -203,6 +207,9 @@ function handleAnswer(
   if (selectedOption === correctAnswer) {
     currentQuestionPoints++;
     setClass(optionItem, "correct-answer");
+    document.querySelector(
+      ".total-score"
+    ).textContent = `Score: ${currentQuestionPoints} / ${questions.length}`;
   } else {
     setClass(optionItem, "not-correct-answer");
     optionsList.querySelectorAll("li").forEach((item) => {

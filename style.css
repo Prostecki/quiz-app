@@ -263,16 +263,6 @@ body::before {
   font-size: 1.5rem;
 }
 
-.correct-answer {
-  border: 3px solid green;
-  color: green;
-}
-
-.not-correct-answer {
-  border: 3px solid red;
-  color: red;
-}
-
 .correct-answer-message {
   font-size: 1.2rem;
   font-weight: bold;
@@ -348,31 +338,34 @@ li {
 .option {
   position: relative;
   cursor: pointer;
-  padding: 10px;
+  padding: 1rem 1.25rem;
+  margin: 0.625rem 0;
+  background-color: #ffffff;
+  border: 0.125rem solid #ddd;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
-  overflow: hidden;
 }
 
 .option:hover {
-  background-color: #010b80;
+  background-color: #496a6e;
 }
 
-.option::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.option.correct-answer {
+  /* background-color: #c8e6c9;  */
+  border-color: #4caf50;
+  color: #4caf50;
 }
 
-.option:hover::after {
-  opacity: 1;
+.option.not-correct-answer {
+  /* background-color: #c3999d; */
+  border-color: #f44336;
+  color: red;
 }
 
+.option.clicked {
+  opacity: 0.8;
+}
 /* Media Queries for Larger Screens */
 @media (max-width: 768px) {
   .app-container {
