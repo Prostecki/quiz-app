@@ -13,12 +13,27 @@ html {
 }
 
 body {
+  background-image: url("assets/quiz-app-background.jpg");
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-color: #f0f0f0;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("assets/quiz-app-background.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  z-index: -1; /* Размещаем под содержимым */
 }
 
 .app-container {
@@ -93,15 +108,18 @@ body {
 
 .question-container {
   animation: fadeIn 0.5s ease-in-out;
-}
-
-.question-container {
-  background-color: #f9f9f9;
+  color: white;
+  background-color: rgba(11, 0, 55, 0.59);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   margin: 20px;
   transition: transform 0.3s;
+  & ul {
+    & li {
+      color: black;
+    }
+  }
   & h2 {
     font-size: 1.2rem;
     margin: 0 0 25px;
@@ -250,6 +268,36 @@ body {
 
 .not-correct-answer {
   border: 2px solid red;
+}
+
+.correct-answer-message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.next-question-button {
+  background-color: rgb(74, 74, 74);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  &:hover {
+    background-color: rgb(100, 100, 100);
+  }
+}
+
+.next-question-button:focus {
+  outline: none;
+}
+
+.bottom-box-question {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 .finish-headline {

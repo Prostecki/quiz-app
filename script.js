@@ -123,16 +123,14 @@ function displayQuestions(questions) {
   );
   const timerDiv = createElement("div", "timer", "Time left: 10 seconds...");
   const optionsList = createElement("ul");
-  const nextQueButton = createElement(
-    "button",
-    "next-question-button",
-    "NextQue"
-  );
+  const nextQueButton = createElement("button", "next-question-button", "Next");
   const questionNumber = createElement(
     "h2",
     "question-number",
     `${currentQuestionIndex + 1} of ${questions.length} questions`
   );
+
+  const bottomBox = createElement("div", "bottom-box-question");
 
   isAnswered = false;
 
@@ -145,13 +143,14 @@ function displayQuestions(questions) {
     optionsList.appendChild(optionItem);
   });
 
+  bottomBox.append(nextQueButton, timerDiv);
+
   questionDiv.append(
     pointsContainer,
     questionText,
     optionsList,
     questionNumber,
-    nextQueButton,
-    timerDiv
+    bottomBox
   );
   appContainer.appendChild(questionDiv);
 
@@ -203,11 +202,20 @@ function handleTimeout(optionsList, questions) {
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
 
+  const createElement = (tag, className = "", textContent = "") => {
+    const element = document.createElement(tag);
+    if (className) element.classList.add(className);
+    if (textContent) element.textContent = textContent;
+    return element;
+  };
+
   const { correctAnswer } = questions[currentQuestionIndex];
   console.log(correctAnswer);
-  const messageDiv = document.createElement("div");
-  messageDiv.style.textAlign = "center";
-  messageDiv.textContent = `Time is up! Correct answer is ${correctAnswer}`;
+  const messageDiv = createElement(
+    "div",
+    "correct-answer-message",
+    `Time is up! Correct answer is ${correctAnswer}`
+  );
 
   appContainer.appendChild(messageDiv);
 
