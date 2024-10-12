@@ -45,6 +45,19 @@ body::before {
   display: none;
 }
 
+#categorySelect {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#categorySelect:focus {
+  border-color: #0056b3;
+}
+
 .isActive {
   display: block;
 }

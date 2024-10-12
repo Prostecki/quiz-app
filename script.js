@@ -1,5 +1,4 @@
-import { fetchQuestions } from "./fetchquestions.js";
-
+import { fetchQuestions, getCategories } from "./fetchquestions.js";
 const appContainer = document.querySelector(".app-container");
 const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
@@ -12,8 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 //Declare a variable with questions from JSON file
-const questions = await fetchQuestions();
-console.log(questions);
+// const questions = await fetchQuestions();
 
 // Variables
 let currentQuestionIndex = 0;
@@ -40,29 +38,47 @@ startButton.addEventListener("click", (e) => {
 });
 
 // Create buttons for categories
-function createCategoryButton(text, className, onClick) {
-  const categoryDiv = document.createElement("div");
-  categoryDiv.classList.add(className);
-  categoryDiv.textContent = text;
-  categoryDiv.addEventListener("click", onClick);
-  appContainer.appendChild(categoryDiv);
-}
+// function createCategoryButton(text, className, onClick) {
+//   const categoryDiv = document.createElement("div");
+//   categoryDiv.classList.add(className);
+//   categoryDiv.textContent = text;
+//   categoryDiv.addEventListener("click", onClick);
+//   appContainer.appendChild(categoryDiv);
+// }
 
 // Begin app quiz
-function startQuiz() {
+async function startQuiz() {
   welcomeSection.remove();
   appContainer.classList.add("isActive");
 
-  createCategoryButton(
-    "Computer Science",
-    "computer-science",
-    displayComputerQuestions
-  );
-  createCategoryButton(
-    "Computer Games",
-    "computer-games",
-    displayGamesQuestions
-  );
+  const categories = await getCategories();
+
+  if (!categories) {
+    console.error("No categories found");
+    return;
+  }
+
+  const categorySelect = document.createElement("select");
+  categorySelect.id = "categorySelect";
+
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    categorySelect.appendChild(option);
+  });
+
+  const selectButton = document.createElement("button");
+  selectButton.textContent = "Выбрать категорию";
+
+  selectButton.addEventListener("click", async () => {
+    const selectedId = categorySelect.value;
+    console.log(`Selected category ID: ${selectedId}`);
+    await fetchQuestions(selectedId);
+  });
+
+  appContainer.appendChild(categorySelect);
+  appContainer.appendChild(selectButton);
 }
 
 // Clear content in appContainer
@@ -71,10 +87,10 @@ function clearPage() {
 }
 
 // Function for displaying questions by category
-function displayQuestionsByCategory(category) {
-  const categoryName =
-    category === "computerscience" ? "Computer Science" : "Computer Games";
-  startQuizCategory(questions[category], categoryName);
+async function displayQuestionsByCategory(categoryId, categoryName) {
+  clearPage();
+  const questions = await fetchQuestions(categoryId);
+  startQuizCategory(questions, categoryName);
 }
 
 // Begin a quiz
