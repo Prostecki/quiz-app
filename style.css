@@ -51,11 +51,11 @@ body::before {
   border: 2px solid #007bff;
   border-radius: 5px;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease; /* Плавный переход */
 }
 
 #categorySelect:focus {
-  border-color: #0056b3;
+  border-color: #0056b3; /* Цвет рамки при фокусе */
 }
 
 .isActive {
