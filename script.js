@@ -302,6 +302,8 @@ function handleTimeout(optionsList, questions, nextQueButton) {
 
   appContainer.appendChild(messageDiv);
 
+  messageDiv.classList.add("active");
+
   nextQueButton.disabled = false;
 
   answerGiven = true;

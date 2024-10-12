@@ -38,6 +38,9 @@ body::before {
 
 .app-container {
   width: 90%;
+  /* border: 0.5px solid white; */
+  padding: 20px;
+  border-radius: 10px;
   max-width: 400px;
   display: none;
 }
@@ -292,9 +295,13 @@ body::before {
 }
 
 .correct-answer-message {
+  text-align: center;
+  max-width: 100%;
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
+  padding: 5px;
+  opacity: 0;
 }
 
 .next-question-button {
