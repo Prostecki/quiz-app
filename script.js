@@ -5,12 +5,23 @@ let currentQuestionIndex = 0;
 let currentQuestionPoints = 0;
 let countdownInterval;
 let isQuizCompleted = false;
+// Check you user clicked on some answer and it stops to click after giving answer
 let isAnswered = false;
+
+// Checking if user clicked on something at all
 let answerGiven = false;
 
 const appContainer = document.querySelector(".app-container");
 const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
+
+//Loading bar for questions
+const timerBox = document.createElement("div");
+timerBox.classList.add("timer-box");
+const timerBar = document.createElement("div");
+timerBar.classList.add("timer-bar");
+
+timerBox.appendChild(timerBar);
 
 //Declare a variable with questions from JSON file
 const questions = await fetchQuestions();
@@ -138,6 +149,7 @@ function displayQuestions(questions) {
 
   isAnswered = false;
 
+  timerBar.style.width = "100%";
   // Creating and adding of options
   options.forEach((option) => {
     const optionItem = createElement("li", "option", option);
@@ -156,12 +168,15 @@ function displayQuestions(questions) {
 
   bottomBox.append(nextQueButton, timerDiv);
 
+  // bottomBox.appendChild(timerBar);
+
   questionDiv.append(
     pointsContainer,
     questionText,
     optionsList,
     questionNumber,
-    bottomBox
+    bottomBox,
+    timerBox
   );
   appContainer.appendChild(questionDiv);
 
@@ -290,6 +305,9 @@ function handleTimeout(optionsList, questions, nextQueButton) {
 
 // Timer function
 function startTimer(duration, onComplete, timerDiv) {
+  //Initial width of timer bar (%)
+  // let initialWidth = 100;
+
   let timeLeft = duration;
   countdownInterval = setInterval(() => {
     if (isQuizCompleted) {
@@ -299,10 +317,11 @@ function startTimer(duration, onComplete, timerDiv) {
 
     timeLeft--;
     timerDiv.textContent = `Time left: ${timeLeft} seconds...`;
+    const widthPercentage = (timeLeft / duration) * 100;
+    timerBar.style.width = `${widthPercentage}%`;
 
     if (timeLeft < 1) {
       console.log("Time is up! Moving to the next question.");
-      // console.log("The correct answer is...", questions.correctAnswer);
       clearInterval(countdownInterval);
       onComplete();
     }
