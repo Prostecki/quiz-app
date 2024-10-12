@@ -51,6 +51,9 @@ body::before {
 }
 
 .welcome-section {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
   width: 50%;
   background-color: #4a4a4a;
   border-radius: 15px;
@@ -61,6 +64,11 @@ body::before {
   padding: 30px;
   color: white;
   position: relative;
+}
+
+.welcome-section.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .welcome-content {
@@ -349,6 +357,46 @@ li {
   padding: 10px;
   margin-bottom: 10px;
   transition: background-color 0.3s;
+}
+
+.stop-quiz-container {
+  background-color: #282c34;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.stop-quiz-container h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.stop-quiz-box-button {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.stop-quiz-container button {
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  color: #282c34;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+  width: 35%;
+}
+
+.stop-quiz-container button:hover {
+  background-color: #21a1f1;
 }
 
 /* li:hover {

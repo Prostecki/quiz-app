@@ -1,5 +1,20 @@
 import { fetchQuestions } from "./fetchquestions.js";
 
+const appContainer = document.querySelector(".app-container");
+const startButton = document.querySelector(".start-button");
+const welcomeSection = document.querySelector(".welcome-section");
+
+window.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    welcomeSection.style.opacity = 1;
+    console.log("Begin");
+  }, 500);
+});
+
+//Declare a variable with questions from JSON file
+const questions = await fetchQuestions();
+console.log(questions);
+
 // Variables
 let currentQuestionIndex = 0;
 let currentQuestionPoints = 0;
@@ -11,10 +26,6 @@ let isAnswered = false;
 // Checking if user clicked on something at all
 let answerGiven = false;
 
-const appContainer = document.querySelector(".app-container");
-const startButton = document.querySelector(".start-button");
-const welcomeSection = document.querySelector(".welcome-section");
-
 //Loading bar for questions
 const timerBox = document.createElement("div");
 timerBox.classList.add("timer-box");
@@ -22,10 +33,6 @@ const timerBar = document.createElement("div");
 timerBar.classList.add("timer-bar");
 
 timerBox.appendChild(timerBar);
-
-//Declare a variable with questions from JSON file
-const questions = await fetchQuestions();
-console.log(questions);
 
 startButton.addEventListener("click", (e) => {
   e.preventDefault();
@@ -150,6 +157,7 @@ function displayQuestions(questions) {
   isAnswered = false;
 
   timerBar.style.width = "100%";
+
   // Creating and adding of options
   options.forEach((option) => {
     const optionItem = createElement("li", "option", option);
@@ -181,7 +189,6 @@ function displayQuestions(questions) {
   appContainer.appendChild(questionDiv);
 
   nextQueButton.addEventListener("click", () => {
-    console.log("CLICKED????");
     goToNextQuestion(questions);
   });
 
@@ -225,6 +232,8 @@ function handleAnswer(
     document.querySelector(
       ".total-score"
     ).textContent = `Score: ${currentQuestionPoints} / ${questions.length}`;
+    // If it's correct answer, we save a number of score as key, value
+    localStorage.setItem("Score", currentQuestionPoints);
   } else {
     setClass(optionItem, "not-correct-answer");
     optionsList.querySelectorAll("li").forEach((item) => {
@@ -332,6 +341,8 @@ function startTimer(duration, onComplete, timerDiv) {
 function showQuizCompletion() {
   if (isQuizCompleted) return;
 
+  clearPage();
+
   clearInterval(countdownInterval);
   isQuizCompleted = true;
 
@@ -342,26 +353,43 @@ function showQuizCompletion() {
     return element;
   };
 
+  //Declare a variable const with saved localstorage key Score
+  const finalScore = localStorage.getItem("Score");
+
   const stopQuizContainer = createElement("div", "stop-quiz-container", "");
   const stopQuizHeadline = createElement(
     "h3",
     "",
-    `Congratulations, quiz complete! You earned ${currentQuestionPoints} points!`
+    `Congratulations, quiz complete! You earned ${finalScore} points!`
   );
   const startAgainButton = createElement("button", "", "Start again!");
   const leaveButton = createElement("button", "leave-button", "Leave Quiz!");
 
-  stopQuizContainer.append(stopQuizHeadline, startAgainButton, leaveButton);
+  const completionButtonBox = createElement("div", "stop-quiz-box-button");
+
+  completionButtonBox.append(startAgainButton, leaveButton);
+  stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
   appContainer.appendChild(stopQuizContainer);
 
   startAgainButton.addEventListener("click", () => {
+    //Delete scores in current session
+    localStorage.removeItem("Score");
     currentQuestionIndex = 0;
     currentQuestionPoints = 0;
     isQuizCompleted = false;
+    clearPage();
     startQuiz();
   });
 
-  leaveButton.addEventListener("click", () => stopQuizContainer.remove());
+  leaveButton.addEventListener("click", () => {
+    localStorage.clear();
+    stopQuizContainer.remove();
+    location.reload();
+    showWelcomeSection();
+    // appContainer.classList.remove("isActive");
+    // welcomeSection.appendChild(startButton);
+    // document.body.append(welcomeSection);
+  });
 }
 
 // Functions for categories
@@ -371,4 +399,8 @@ function displayComputerQuestions() {
 
 function displayGamesQuestions() {
   displayQuestionsByCategory("computergames");
+}
+
+function showWelcomeSection() {
+  welcomeSection.classList.add("active");
 }
