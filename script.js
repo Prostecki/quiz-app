@@ -69,12 +69,20 @@ async function startQuiz() {
   });
 
   const selectButton = document.createElement("button");
+  selectButton.classList.add("choose-category-button");
   selectButton.textContent = "Выбрать категорию";
 
   selectButton.addEventListener("click", async () => {
     const selectedId = categorySelect.value;
     console.log(`Selected category ID: ${selectedId}`);
-    await fetchQuestions(selectedId);
+
+    const questions = await fetchQuestions(selectedId);
+
+    if (questions && questions.length > 0) {
+      displayQuestions(questions);
+    } else {
+      console.error("No questions available");
+    }
   });
 
   appContainer.appendChild(categorySelect);
@@ -137,9 +145,17 @@ function displayQuestions(questions) {
   isAnswered = false;
   answerGiven = false;
 
-  const { question, options, correctAnswer } = questions[currentQuestionIndex];
+  const {
+    question,
+    incorrect_answers = [],
+    correct_answer,
+  } = questions[currentQuestionIndex];
 
   clearPage();
+
+  const options = [...incorrect_answers, correct_answer].sort(
+    () => Math.random() - 0.5
+  );
 
   const createElement = (tag, className = "", textContent = "") => {
     const element = document.createElement(tag);
@@ -180,7 +196,7 @@ function displayQuestions(questions) {
     optionItem.addEventListener("click", () =>
       handleAnswer(
         option,
-        correctAnswer,
+        correct_answer,
         questions,
         optionItem,
         optionsList,
@@ -218,7 +234,7 @@ function displayQuestions(questions) {
 // When u choose an answer
 function handleAnswer(
   selectedOption,
-  correctAnswer,
+  correct_answer,
   questions,
   optionItem,
   optionsList,
@@ -231,7 +247,7 @@ function handleAnswer(
   answerGiven = true;
 
   console.log("Current Question:", questions[currentQuestionIndex]);
-  console.log("Correct Answer:", correctAnswer);
+  console.log("Correct Answer:", correct_answer);
   console.log("Options:", optionsList);
 
   console.log("Answer given status:", answerGiven);
@@ -242,7 +258,7 @@ function handleAnswer(
 
   const setClass = (element, className) => element.classList.add(className);
 
-  if (selectedOption === correctAnswer) {
+  if (selectedOption === correct_answer) {
     currentQuestionPoints++;
     setClass(optionItem, "correct-answer");
     document.querySelector(
@@ -253,7 +269,7 @@ function handleAnswer(
   } else {
     setClass(optionItem, "not-correct-answer");
     optionsList.querySelectorAll("li").forEach((item) => {
-      if (item.textContent === correctAnswer) {
+      if (item.textContent === correct_answer) {
         setClass(item, "correct-answer");
       }
     });
@@ -323,11 +339,6 @@ function handleTimeout(optionsList, questions, nextQueButton) {
   nextQueButton.disabled = false;
 
   answerGiven = true;
-
-  // currentQuestionIndex++;
-  // displayQuestions(questions);
-  // setTimeout(() => {
-  // }, 3000);
 }
 
 // Timer function
@@ -404,19 +415,7 @@ function showQuizCompletion() {
     stopQuizContainer.remove();
     location.reload();
     showWelcomeSection();
-    // appContainer.classList.remove("isActive");
-    // welcomeSection.appendChild(startButton);
-    // document.body.append(welcomeSection);
   });
-}
-
-// Functions for categories
-function displayComputerQuestions() {
-  displayQuestionsByCategory("computerscience");
-}
-
-function displayGamesQuestions() {
-  displayQuestionsByCategory("computergames");
 }
 
 function showWelcomeSection() {
