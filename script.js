@@ -2,6 +2,16 @@ import { fetchQuestions, getCategories } from "./fetchquestions.js";
 const appContainer = document.querySelector(".app-container");
 const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
+const showResultsButton = document.querySelector(".stats-table-button");
+const createElement = (tag, className = "", textContent = "") => {
+  const element = document.createElement(tag);
+  if (className) element.classList.add(className);
+  if (textContent) element.textContent = textContent;
+  return element;
+};
+showResultsButton.addEventListener("click", loadScoreboard);
+// welcomeSection.remove();
+// appContainer.appendChild(scoreBoardContainer);
 
 window.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
@@ -9,9 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
     console.log("Begin");
   }, 500);
 });
-
-//Declare a variable with questions from JSON file
-// const questions = await fetchQuestions();
 
 // Variables
 let currentQuestionIndex = 0;
@@ -77,10 +84,6 @@ async function startQuiz() {
   const selectWrapper = createElement("div", "select-category-wrapper");
   const selectButton = createElement("button", "start-button", "Submit");
 
-  // const selectButton = document.createElement("button");
-  // selectButton.classList.add("choose-category-button");
-  // selectButton.textContent = "Submit a category";
-
   selectButton.addEventListener("click", async () => {
     const selectedId = categorySelect.value;
     console.log(`Selected category ID: ${selectedId}`);
@@ -108,48 +111,6 @@ async function startQuiz() {
 function clearPage() {
   appContainer.innerHTML = "";
 }
-
-// // Function for displaying questions by category
-// async function displayQuestionsByCategory(categoryId, categoryName) {
-//   clearPage();
-//   const questions = await fetchQuestions(categoryId);
-//   startQuizCategory(questions, categoryName);
-// }
-
-// Begin a quiz
-// function startQuizCategory(questions, categoryTitle) {
-//   clearPage();
-
-//   const createElement = (tag, className, text = "") => {
-//     const element = document.createElement(tag);
-//     if (className) element.classList.add(...className.split(" "));
-//     if (text) element.textContent = text;
-//     return element;
-//   };
-
-//   const greetingsBox = createElement("div", "greetings-box slide-up");
-//   const greetingsHeadline = createElement(
-//     "h2",
-//     "greetings-headline",
-//     `Welcome to ${categoryTitle} questions!`
-//   );
-//   const greetingsParagraph = createElement(
-//     "p",
-//     "greetings-paragraph",
-//     "Let's get started!"
-//   );
-
-//   greetingsBox.append(greetingsHeadline, greetingsParagraph);
-//   appContainer.appendChild(greetingsBox);
-
-//   setTimeout(() => {
-//     greetingsBox.classList.add("hidden");
-//     setTimeout(() => {
-//       displayQuestions(questions);
-//       greetingsBox.remove();
-//     }, 500);
-//   }, 1500);
-// }
 
 // To display questions
 function displayQuestions(questions) {
@@ -428,9 +389,14 @@ function showQuizCompletion() {
 
   saveResultsButton.addEventListener("click", () => {
     const nickname = inputQuizName.value;
-    localStorage.setItem("nickname", nickname);
-    console.log("You nickname saved successfully!", nickname);
-    inputQuizName.value = "";
+    if (nickname) {
+      localStorage.setItem("nickname", nickname);
+      console.log("You nickname saved successfully!", nickname);
+      inputQuizName.value = "";
+      // addUserScore(nickname, finalScore);
+    } else {
+      console.log("Please enter your name before saving results!");
+    }
   });
 
   startAgainButton.addEventListener("click", () => {
@@ -449,6 +415,77 @@ function showQuizCompletion() {
     location.reload();
     showWelcomeSection();
   });
+}
+
+function addUserScore(userQuiz, points) {
+  clearPage();
+  const scoreBoardContainer = createElement("div", "score-board-container");
+  const scoreBoardHeadline = createElement("h2", "", "Scoreboard");
+
+  const scoreTable = document.createElement("table");
+  scoreTable.innerHTML = `
+    <thead>
+      <tr>
+        <th>Nickname</th>
+        <th>Points</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody id="score-tbody"></tbody>
+  `;
+
+  const tbody = scoreTable.querySelector("#score-tbody");
+  const currentDate = new Date().toLocaleDateString();
+  const userRow = `
+    <tr>
+      <td>${userQuiz}</td>
+      <td>${points}</td>
+      <td>${currentDate}</td>
+    </tr>
+  `;
+  tbody.innerHTML += userRow;
+  scoreBoardContainer.append(scoreBoardHeadline, scoreTable);
+  appContainer.appendChild(scoreBoardContainer);
+
+  let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || [];
+  scoreboard.push({ nickname: userQuiz, points, data: currentDate });
+  localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+}
+
+function loadScoreboard() {
+  clearPage();
+  const scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || [];
+  const scoreBoardContainer = createElement("div", "score-board-container");
+  const scoreBoardHeadline = createElement("h2", "", "Scoreboard");
+
+  const scoreTable = document.createElement("table");
+  scoreTable.innerHTML = `
+    <thead>
+      <tr>
+        <th>Никнейм</th>
+        <th>Количество очков</th>
+        <th>Дата</th>
+      </tr>
+    </thead>
+    <tbody id="score-tbody"></tbody>
+  `;
+
+  const tbody = scoreTable.querySelector("#score-tbody");
+  scoreboard.forEach((score) => {
+    const row = `
+      <tr>
+        <td>${score.nickname}</td>
+        <td>${score.points}</td>
+        <td>${score.date}</td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+
+  welcomeSection.remove();
+  appContainer.classList.add("isActive");
+  scoreBoardContainer.append(scoreBoardHeadline, scoreTable);
+  appContainer.appendChild(scoreBoardContainer);
 }
 
 function showWelcomeSection() {
