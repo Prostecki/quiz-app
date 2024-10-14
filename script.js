@@ -406,12 +406,14 @@ function showQuizCompletion() {
     "",
     `Congratulations, quiz complete! You earned ${finalScore} points!`
   );
+  const inputQuizName = createElement("input", "input-quiz-name");
+  inputQuizName.placeholder = "Enter your name...";
   const startAgainButton = createElement("button", "", "Start again!");
-  const leaveButton = createElement("button", "leave-button", "Leave Quiz!");
+  const leaveButton = createElement("button", "leave-button", "Go home!");
 
   const completionButtonBox = createElement("div", "stop-quiz-box-button");
 
-  completionButtonBox.append(startAgainButton, leaveButton);
+  completionButtonBox.append(inputQuizName, startAgainButton, leaveButton);
   stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
   appContainer.appendChild(stopQuizContainer);
 
