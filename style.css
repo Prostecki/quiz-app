@@ -22,20 +22,6 @@ body {
   width: 100%;
 }
 
-/* body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("assets/quiz-app-background.jpg");
-  background-size: cover;
-  background-position: center;
-  filter: blur(5px);
-  z-index: -1; /* Размещаем под содержимым 
-} */
-
 .app-container {
   width: 90%;
   /* border: 0.5px solid white; */
@@ -43,6 +29,13 @@ body {
   border-radius: 10px;
   max-width: 400px;
   display: none;
+}
+
+.start-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .select-category-container {
@@ -203,15 +196,22 @@ body {
   }
   & h2 {
     font-size: 1.2rem;
-    margin: 0 0 25px;
+    position: relative;
+    margin: 40px 0px 20px;
   }
   & h3 {
     font-size: 1.2rem;
     margin: 0 0 25px;
   }
-  .timer {
-    margin: 25px 0 0;
-  }
+}
+
+.question-number::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0.5px;
+  background: white;
+  top: -1rem;
 }
 
 .computer-science,
@@ -303,7 +303,7 @@ body {
 }
 
 .timer-box {
-  border: 1px solid grey;
+  border: 0.1px solid grey;
   border-radius: 10px;
   height: 1.5rem;
   position: relative;
@@ -375,9 +375,11 @@ body {
 .next-question-button {
   background-color: #007bff;
   color: white;
+  height: max-content;
   border: none;
   border-radius: 8px;
-  padding: 10px 20px;
+  min-width: 75px;
+  padding: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -394,6 +396,7 @@ body {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
+  align-items: center;
 }
 
 .finish-headline {
@@ -490,6 +493,7 @@ li {
   border-radius: 0.3125rem;
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
+  border-radius: 15px;
 }
 
 .option:hover {
@@ -500,12 +504,14 @@ li {
   /* background-color: #c8e6c9;  */
   border-color: #4caf50;
   color: #4caf50;
+  border-radius: 15px;
 }
 
 .option.not-correct-answer {
   /* background-color: #c3999d; */
   border-color: #f44336;
   color: red;
+  border-radius: 15px;
 }
 
 .option.clicked {

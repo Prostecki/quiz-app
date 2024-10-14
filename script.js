@@ -102,9 +102,6 @@ async function startQuiz() {
   selectWrapper.appendChild(categorySelect);
   selectContainer.append(selectHeadline, selectWrapper, selectButton);
   appContainer.appendChild(selectContainer);
-
-  // appContainer.appendChild(categorySelect);
-  // appContainer.appendChild(selectButton);
 }
 
 // Clear content in appContainer
@@ -112,47 +109,47 @@ function clearPage() {
   appContainer.innerHTML = "";
 }
 
-// Function for displaying questions by category
-async function displayQuestionsByCategory(categoryId, categoryName) {
-  clearPage();
-  const questions = await fetchQuestions(categoryId);
-  startQuizCategory(questions, categoryName);
-}
+// // Function for displaying questions by category
+// async function displayQuestionsByCategory(categoryId, categoryName) {
+//   clearPage();
+//   const questions = await fetchQuestions(categoryId);
+//   startQuizCategory(questions, categoryName);
+// }
 
 // Begin a quiz
-function startQuizCategory(questions, categoryTitle) {
-  clearPage();
+// function startQuizCategory(questions, categoryTitle) {
+//   clearPage();
 
-  const createElement = (tag, className, text = "") => {
-    const element = document.createElement(tag);
-    if (className) element.classList.add(...className.split(" "));
-    if (text) element.textContent = text;
-    return element;
-  };
+//   const createElement = (tag, className, text = "") => {
+//     const element = document.createElement(tag);
+//     if (className) element.classList.add(...className.split(" "));
+//     if (text) element.textContent = text;
+//     return element;
+//   };
 
-  const greetingsBox = createElement("div", "greetings-box slide-up");
-  const greetingsHeadline = createElement(
-    "h2",
-    "greetings-headline",
-    `Welcome to ${categoryTitle} questions!`
-  );
-  const greetingsParagraph = createElement(
-    "p",
-    "greetings-paragraph",
-    "Let's get started!"
-  );
+//   const greetingsBox = createElement("div", "greetings-box slide-up");
+//   const greetingsHeadline = createElement(
+//     "h2",
+//     "greetings-headline",
+//     `Welcome to ${categoryTitle} questions!`
+//   );
+//   const greetingsParagraph = createElement(
+//     "p",
+//     "greetings-paragraph",
+//     "Let's get started!"
+//   );
 
-  greetingsBox.append(greetingsHeadline, greetingsParagraph);
-  appContainer.appendChild(greetingsBox);
+//   greetingsBox.append(greetingsHeadline, greetingsParagraph);
+//   appContainer.appendChild(greetingsBox);
 
-  setTimeout(() => {
-    greetingsBox.classList.add("hidden");
-    setTimeout(() => {
-      displayQuestions(questions);
-      greetingsBox.remove();
-    }, 500);
-  }, 1500);
-}
+//   setTimeout(() => {
+//     greetingsBox.classList.add("hidden");
+//     setTimeout(() => {
+//       displayQuestions(questions);
+//       greetingsBox.remove();
+//     }, 500);
+//   }, 1500);
+// }
 
 // To display questions
 function displayQuestions(questions) {
@@ -400,22 +397,41 @@ function showQuizCompletion() {
   //Declare a variable const with saved localstorage key Score
   const finalScore = localStorage.getItem("Score");
 
+  const inputQuizName = createElement("input", "input-quiz-name");
+  inputQuizName.placeholder = "Enter your name...";
+
   const stopQuizContainer = createElement("div", "stop-quiz-container", "");
   const stopQuizHeadline = createElement(
     "h3",
     "",
     `Congratulations, quiz complete! You earned ${finalScore} points!`
   );
-  const inputQuizName = createElement("input", "input-quiz-name");
-  inputQuizName.placeholder = "Enter your name...";
+
+  const saveResultsButton = createElement(
+    "button",
+    "save-results-button",
+    "Save results"
+  );
   const startAgainButton = createElement("button", "", "Start again!");
   const leaveButton = createElement("button", "leave-button", "Go home!");
 
   const completionButtonBox = createElement("div", "stop-quiz-box-button");
 
-  completionButtonBox.append(inputQuizName, startAgainButton, leaveButton);
+  completionButtonBox.append(
+    inputQuizName,
+    saveResultsButton,
+    startAgainButton,
+    leaveButton
+  );
   stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
   appContainer.appendChild(stopQuizContainer);
+
+  saveResultsButton.addEventListener("click", () => {
+    const nickname = inputQuizName.value;
+    localStorage.setItem("nickname", nickname);
+    console.log("You nickname saved successfully!", nickname);
+    inputQuizName.value = "";
+  });
 
   startAgainButton.addEventListener("click", () => {
     //Delete scores in current session
