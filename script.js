@@ -37,15 +37,6 @@ startButton.addEventListener("click", (e) => {
   startQuiz();
 });
 
-// Create buttons for categories
-// function createCategoryButton(text, className, onClick) {
-//   const categoryDiv = document.createElement("div");
-//   categoryDiv.classList.add(className);
-//   categoryDiv.textContent = text;
-//   categoryDiv.addEventListener("click", onClick);
-//   appContainer.appendChild(categoryDiv);
-// }
-
 // Begin app quiz
 async function startQuiz() {
   welcomeSection.remove();
@@ -58,6 +49,13 @@ async function startQuiz() {
     return;
   }
 
+  const createElement = (tag, className = "", textContent = "") => {
+    const element = document.createElement(tag);
+    if (className) element.classList.add(className);
+    if (textContent) element.textContent = textContent;
+    return element;
+  };
+
   const categorySelect = document.createElement("select");
   categorySelect.id = "categorySelect";
 
@@ -68,9 +66,19 @@ async function startQuiz() {
     categorySelect.appendChild(option);
   });
 
-  const selectButton = document.createElement("button");
-  selectButton.classList.add("choose-category-button");
-  selectButton.textContent = "Выбрать категорию";
+  const selectContainer = createElement("div", "select-category-container");
+
+  const selectHeadline = createElement(
+    "h3",
+    "select-headline",
+    "Choose your category of questtions"
+  );
+
+  const selectButton = createElement("button", "start-button", "Submit");
+
+  // const selectButton = document.createElement("button");
+  // selectButton.classList.add("choose-category-button");
+  // selectButton.textContent = "Submit a category";
 
   selectButton.addEventListener("click", async () => {
     const selectedId = categorySelect.value;
@@ -85,8 +93,11 @@ async function startQuiz() {
     }
   });
 
-  appContainer.appendChild(categorySelect);
-  appContainer.appendChild(selectButton);
+  selectContainer.append(selectHeadline, categorySelect, selectButton);
+  appContainer.appendChild(selectContainer);
+
+  // appContainer.appendChild(categorySelect);
+  // appContainer.appendChild(selectButton);
 }
 
 // Clear content in appContainer
@@ -315,21 +326,21 @@ function handleTimeout(optionsList, questions, nextQueButton) {
     return element;
   };
 
-  const { correctAnswer } = questions[currentQuestionIndex];
+  const { correct_answer } = questions[currentQuestionIndex];
 
   optionsList.querySelectorAll("li").forEach((item) => {
-    if (item.textContent === correctAnswer) {
+    if (item.textContent === correct_answer) {
       item.classList.add("correct-answer");
     } else {
       item.classList.add("not-correct-answer");
     }
   });
 
-  console.log(correctAnswer);
+  console.log(correct_answer);
   const messageDiv = createElement(
     "div",
     "correct-answer-message",
-    `Time is up! Correct answer is ${correctAnswer}`
+    `Time is up! Correct answer is ${correct_answer}`
   );
 
   appContainer.appendChild(messageDiv);
@@ -343,9 +354,6 @@ function handleTimeout(optionsList, questions, nextQueButton) {
 
 // Timer function
 function startTimer(duration, onComplete, timerDiv) {
-  //Initial width of timer bar (%)
-  // let initialWidth = 100;
-
   let timeLeft = duration;
   countdownInterval = setInterval(() => {
     if (isQuizCompleted) {
