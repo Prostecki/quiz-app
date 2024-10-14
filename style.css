@@ -50,12 +50,17 @@ body {
   background-color: #4a4a4a;
   border-radius: 10px;
   padding: 15px;
+  position: relative;
   max-width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   & h3 {
-    margin: 0 0 25px;
+    margin: 0 0 5px;
+    width: 100%;
+    text-align: start;
+    font-size: 1rem;
+    font-weight: bold;
     color: white;
   }
   & button {
@@ -63,18 +68,49 @@ body {
   }
 }
 
+.select-category-wrapper {
+  width: 100%;
+}
+
+.select-category-wrapper::after {
+  content: "▼";
+  position: absolute;
+  top: 4.1rem;
+  right: 1.6rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #3498db;
+}
+
 #categorySelect {
-  max-width: 50%;
+  appearance: none;
+  width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 2px solid #007bff;
   border-radius: 5px;
   outline: none;
   transition: border-color 0.3s ease;
+  margin: 0 0 20px;
+  & option {
+    padding: 10px;
+  }
 }
 
 #categorySelect:focus {
   border-color: #0056b3;
+}
+
+.no-questions-message {
+  margin: 10px 0 0;
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+  text-decoration: underline;
+  letter-spacing: 1px;
+  color: white;
 }
 
 .isActive {
@@ -287,7 +323,7 @@ body {
 
 .total-score {
   max-width: 100px;
-  background-color: rgb(74, 74, 74);
+  background-color: #007bff;
   color: white;
   text-align: center;
   padding: 5px;
@@ -337,7 +373,7 @@ body {
 }
 
 .next-question-button {
-  background-color: rgb(74, 74, 74);
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
@@ -431,7 +467,7 @@ li {
   font-size: 1rem;
   margin: 5px;
   transition: background-color 0.3s ease;
-  width: 35%;
+  width: 40%;
 }
 
 .stop-quiz-container button:hover {

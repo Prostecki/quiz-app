@@ -71,9 +71,10 @@ async function startQuiz() {
   const selectHeadline = createElement(
     "h3",
     "select-headline",
-    "Choose your category of questtions"
+    "Select a category..."
   );
 
+  const selectWrapper = createElement("div", "select-category-wrapper");
   const selectButton = createElement("button", "start-button", "Submit");
 
   // const selectButton = document.createElement("button");
@@ -90,10 +91,16 @@ async function startQuiz() {
       displayQuestions(questions);
     } else {
       console.error("No questions available");
+      const noQuestionsMessage = createElement(
+        "p",
+        "no-questions-message",
+        "No questions available :("
+      );
+      selectContainer.appendChild(noQuestionsMessage);
     }
   });
-
-  selectContainer.append(selectHeadline, categorySelect, selectButton);
+  selectWrapper.appendChild(categorySelect);
+  selectContainer.append(selectHeadline, selectWrapper, selectButton);
   appContainer.appendChild(selectContainer);
 
   // appContainer.appendChild(categorySelect);
