@@ -153,7 +153,7 @@ function displayQuestions(questions) {
     "",
     `${currentQuestionIndex + 1}. ${question}`
   );
-  const timerDiv = createElement("div", "timer", "Time left: 10 seconds...");
+  const timerDiv = createElement("div", "timer", "Time left: 45 seconds...");
   const optionsList = createElement("ul");
   const nextQueButton = createElement("button", "next-question-button", "Next");
   const questionNumber = createElement(
