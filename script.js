@@ -13,6 +13,7 @@ showResultsButton.addEventListener("click", loadScoreboard);
 // welcomeSection.remove();
 // appContainer.appendChild(scoreBoardContainer);
 
+//Load animation of main screen
 window.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     welcomeSection.style.opacity = 1;
@@ -20,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 500);
 });
 
-// Variables
+// Variables for quiz
 let currentQuestionIndex = 0;
 let currentQuestionPoints = 0;
 let countdownInterval;
@@ -39,6 +40,7 @@ timerBar.classList.add("timer-bar");
 
 timerBox.appendChild(timerBar);
 
+//Start a quiz during clicking the button start
 startButton.addEventListener("click", (e) => {
   e.preventDefault();
   startQuiz();
@@ -357,7 +359,6 @@ function showQuizCompletion() {
 
   //Declare a variable const with saved localstorage key Score
   const finalScore = localStorage.getItem("Score");
-
   const inputQuizName = createElement("input", "input-quiz-name");
   inputQuizName.placeholder = "Enter your name...";
 
@@ -367,7 +368,6 @@ function showQuizCompletion() {
     "",
     `Congratulations, quiz complete! You earned ${finalScore} points!`
   );
-
   const saveResultsButton = createElement(
     "button",
     "save-results-button",
@@ -375,7 +375,6 @@ function showQuizCompletion() {
   );
   const startAgainButton = createElement("button", "", "Start again!");
   const leaveButton = createElement("button", "leave-button", "Go home!");
-
   const completionButtonBox = createElement("div", "stop-quiz-box-button");
 
   completionButtonBox.append(
@@ -384,20 +383,21 @@ function showQuizCompletion() {
     startAgainButton,
     leaveButton
   );
-  stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
-  appContainer.appendChild(stopQuizContainer);
 
   saveResultsButton.addEventListener("click", () => {
+    let message = document.createElement("p");
     const nickname = inputQuizName.value;
     if (nickname) {
-      localStorage.setItem("nickname", nickname);
-      console.log("You nickname saved successfully!", nickname);
+      addUserScore(nickname, finalScore);
+      message.textContent = "You nickname saved successfully!";
       inputQuizName.value = "";
-      // addUserScore(nickname, finalScore);
+      stopQuizContainer.appendChild(message);
     } else {
       console.log("Please enter your name before saving results!");
     }
   });
+  stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
+  appContainer.appendChild(stopQuizContainer);
 
   startAgainButton.addEventListener("click", () => {
     //Delete scores in current session
@@ -410,46 +410,21 @@ function showQuizCompletion() {
   });
 
   leaveButton.addEventListener("click", () => {
-    localStorage.clear();
+    // localStorage.clear();
     stopQuizContainer.remove();
     location.reload();
     showWelcomeSection();
   });
 }
 
-function addUserScore(userQuiz, points) {
-  clearPage();
-  const scoreBoardContainer = createElement("div", "score-board-container");
-  const scoreBoardHeadline = createElement("h2", "", "Scoreboard");
-
-  const scoreTable = document.createElement("table");
-  scoreTable.innerHTML = `
-    <thead>
-      <tr>
-        <th>Nickname</th>
-        <th>Points</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody id="score-tbody"></tbody>
-  `;
-
-  const tbody = scoreTable.querySelector("#score-tbody");
+function addUserScore(nickname, points) {
   const currentDate = new Date().toLocaleDateString();
-  const userRow = `
-    <tr>
-      <td>${userQuiz}</td>
-      <td>${points}</td>
-      <td>${currentDate}</td>
-    </tr>
-  `;
-  tbody.innerHTML += userRow;
-  scoreBoardContainer.append(scoreBoardHeadline, scoreTable);
-  appContainer.appendChild(scoreBoardContainer);
-
   let scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || [];
-  scoreboard.push({ nickname: userQuiz, points, data: currentDate });
+
+  scoreboard.push({ nickname, points, date: currentDate });
   localStorage.setItem("scoreboard", JSON.stringify(scoreboard));
+
+  // loadScoreboard();
 }
 
 function loadScoreboard() {
@@ -457,14 +432,15 @@ function loadScoreboard() {
   const scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || [];
   const scoreBoardContainer = createElement("div", "score-board-container");
   const scoreBoardHeadline = createElement("h2", "", "Scoreboard");
+  const leaveButton = createElement("button", "leave-button", "Quit");
 
   const scoreTable = document.createElement("table");
   scoreTable.innerHTML = `
     <thead>
       <tr>
-        <th>Никнейм</th>
-        <th>Количество очков</th>
-        <th>Дата</th>
+        <th>Nickname</th>
+        <th>Score</th>
+        <th>Date</th>
       </tr>
     </thead>
     <tbody id="score-tbody"></tbody>
@@ -484,8 +460,13 @@ function loadScoreboard() {
 
   welcomeSection.remove();
   appContainer.classList.add("isActive");
-  scoreBoardContainer.append(scoreBoardHeadline, scoreTable);
+  scoreBoardContainer.append(scoreBoardHeadline, scoreTable, leaveButton);
   appContainer.appendChild(scoreBoardContainer);
+
+  leaveButton.addEventListener("click", () => {
+    location.reload();
+    showWelcomeSection();
+  });
 }
 
 function showWelcomeSection() {
