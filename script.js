@@ -203,7 +203,7 @@ function displayQuestions(questions) {
   });
 
   startTimer(
-    10,
+    45,
     () => handleTimeout(optionsList, questions, nextQueButton),
     timerDiv
   );
