@@ -56,14 +56,13 @@ export async function fetchQuestions(categoryId) {
     }
 
     const data = await response.json();
-    const questions = data.results;
+    const questions = data.results.map((q) => ({
+      ...q,
+      question: decodeHtmlEntities(q.question),
+    }));
 
     console.log("Fetched Questions:", questions);
 
-    // Выводим вопросы на экран (простой пример)
-    // questions.forEach((question, index) => {
-    // console.log(`${index + 1}. ${question.question}`);
-    // });
     return questions;
   } catch (error) {
     console.error("Error fetching questions:", error);
@@ -71,3 +70,9 @@ export async function fetchQuestions(categoryId) {
 }
 
 getCategories();
+
+function decodeHtmlEntities(str) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  return txt.value;
+}

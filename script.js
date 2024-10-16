@@ -386,7 +386,12 @@ function showQuizCompletion() {
 
   saveResultsButton.addEventListener("click", () => {
     let message = document.createElement("p");
-    const nickname = inputQuizName.value;
+
+    //Trimmed whitespaces.
+    let nickname = inputQuizName.value.trim();
+
+    // It lets to avoid anything that is not a letter or number
+    nickname = nickname.replace(/[^a-zA-Z0-9]/g, "");
     if (nickname) {
       addUserScore(nickname, finalScore);
       message.textContent = "You nickname saved successfully!";
