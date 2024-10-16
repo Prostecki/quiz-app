@@ -114,6 +114,9 @@ function clearPage() {
   appContainer.innerHTML = "";
 }
 
+//Variable for timer
+const timerDuration = 45;
+
 // To display questions
 function displayQuestions(questions) {
   if (isQuizCompleted || currentQuestionIndex >= questions.length) {
@@ -153,7 +156,11 @@ function displayQuestions(questions) {
     "",
     `${currentQuestionIndex + 1}. ${question}`
   );
-  const timerDiv = createElement("div", "timer", "Time left: 45 seconds...");
+  const timerDiv = createElement(
+    "div",
+    "timer",
+    `Time left: ${timerDuration}...`
+  );
   const optionsList = createElement("ul");
   const nextQueButton = createElement("button", "next-question-button", "Next");
   const questionNumber = createElement(
@@ -168,7 +175,7 @@ function displayQuestions(questions) {
 
   timerBar.style.width = "100%";
 
-  // Creating and adding of options
+  // Creating and adding options for answer
   options.forEach((option) => {
     const optionItem = createElement("li", "option", option);
     optionItem.addEventListener("click", () =>
@@ -186,8 +193,6 @@ function displayQuestions(questions) {
 
   bottomBox.append(nextQueButton, timerDiv);
 
-  // bottomBox.appendChild(timerBar);
-
   questionDiv.append(
     pointsContainer,
     questionText,
@@ -203,7 +208,7 @@ function displayQuestions(questions) {
   });
 
   startTimer(
-    45,
+    timerDuration,
     () => handleTimeout(optionsList, questions, nextQueButton),
     timerDiv
   );
