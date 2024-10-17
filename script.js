@@ -34,7 +34,7 @@ let isAnswered = false;
 let answerGiven = false;
 
 //Variable for timer
-const timerDuration = 10;
+const timerDuration = 60;
 
 //Loading bar for questions
 const timerBox = document.createElement("div");
@@ -157,7 +157,7 @@ function displayQuestions(questions) {
   const timerDiv = createElement(
     "div",
     "timer",
-    `Time left: ${timerDuration}...`
+    `Time left: ${timerDuration} seconds...`
   );
   const optionsList = createElement("ul");
   const nextQueButton = createElement("button", "next-question-button", "Next");
