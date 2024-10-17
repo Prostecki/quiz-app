@@ -3,15 +3,16 @@ const appContainer = document.querySelector(".app-container");
 const startButton = document.querySelector(".start-button");
 const welcomeSection = document.querySelector(".welcome-section");
 const showResultsButton = document.querySelector(".stats-table-button");
+
+//The common function that creates an HTML element with optional class and text content
 const createElement = (tag, className = "", textContent = "") => {
   const element = document.createElement(tag);
   if (className) element.classList.add(className);
   if (textContent) element.textContent = textContent;
   return element;
 };
+
 showResultsButton.addEventListener("click", loadScoreboard);
-// welcomeSection.remove();
-// appContainer.appendChild(scoreBoardContainer);
 
 //Load animation of main screen
 window.addEventListener("DOMContentLoaded", () => {
@@ -51,6 +52,7 @@ async function startQuiz() {
   welcomeSection.remove();
   appContainer.classList.add("isActive");
 
+  //Fetching categories from an external API
   const categories = await getCategories();
 
   if (!categories) {
@@ -58,13 +60,7 @@ async function startQuiz() {
     return;
   }
 
-  const createElement = (tag, className = "", textContent = "") => {
-    const element = document.createElement(tag);
-    if (className) element.classList.add(className);
-    if (textContent) element.textContent = textContent;
-    return element;
-  };
-
+  //Create category selection dropdown
   const categorySelect = document.createElement("select");
   categorySelect.id = "categorySelect";
 
@@ -86,14 +82,19 @@ async function startQuiz() {
   const selectWrapper = createElement("div", "select-category-wrapper");
   const selectButton = createElement("button", "start-button", "Submit");
 
+  //Start a quiz after selecting a category
   selectButton.addEventListener("click", async () => {
     const selectedId = categorySelect.value;
     console.log(`Selected category ID: ${selectedId}`);
 
+    //Fetch questions for the selected category
     const questions = await fetchQuestions(selectedId);
 
+    //If there are questions, display them
     if (questions && questions.length > 0) {
       displayQuestions(questions);
+
+      //Otherwise, show message
     } else {
       console.error("No questions available");
       const noQuestionsMessage = createElement(
@@ -119,13 +120,16 @@ const timerDuration = 45;
 
 // To display questions
 function displayQuestions(questions) {
+  //Check if the quiz is completed OR if all questions are answered
   if (isQuizCompleted || currentQuestionIndex >= questions.length) {
     return showQuizCompletion();
   }
 
+  //Answer state
   isAnswered = false;
   answerGiven = false;
 
+  //Destructure the question data
   const {
     question,
     incorrect_answers = [],
@@ -134,16 +138,10 @@ function displayQuestions(questions) {
 
   clearPage();
 
+  //Combine and shuffle options
   const options = [...incorrect_answers, correct_answer].sort(
     () => Math.random() - 0.5
   );
-
-  const createElement = (tag, className = "", textContent = "") => {
-    const element = document.createElement(tag);
-    if (className) element.classList.add(className);
-    if (textContent) element.textContent = textContent;
-    return element;
-  };
 
   const questionDiv = createElement("div", "question-container");
   const pointsContainer = createElement(
@@ -207,6 +205,7 @@ function displayQuestions(questions) {
     goToNextQuestion(questions);
   });
 
+  //Start the timer for the current question
   startTimer(
     timerDuration,
     () => handleTimeout(optionsList, questions, nextQueButton),
@@ -225,29 +224,34 @@ function handleAnswer(
 ) {
   if (isAnswered) return;
 
+  //Change flags here
   isAnswered = true;
-
   answerGiven = true;
 
-  console.log("Current Question:", questions[currentQuestionIndex]);
-  console.log("Correct Answer:", correct_answer);
-  console.log("Options:", optionsList);
+  // console.log("Current Question:", questions[currentQuestionIndex]);
+  // console.log("Correct Answer:", correct_answer);
+  // console.log("Options:", optionsList);
 
-  console.log("Answer given status:", answerGiven);
+  // console.log("Answer given status:", answerGiven);
 
+  //Stop the timer with global function
   clearInterval(countdownInterval);
 
+  //Highlight the selected option
   optionItem.classList.add("clicked");
 
+  //The universal function that declares classes to variables
   const setClass = (element, className) => element.classList.add(className);
 
   if (selectedOption === correct_answer) {
+    //Increment score if the answer is correct
     currentQuestionPoints++;
     setClass(optionItem, "correct-answer");
+
     document.querySelector(
       ".total-score"
     ).textContent = `Score: ${currentQuestionPoints} / ${questions.length}`;
-    // If it's correct answer, we save a number of score as key, value
+    // If it's correct answer, we save a number of score as key, value in local storage
     localStorage.setItem("Score", currentQuestionPoints);
   } else {
     setClass(optionItem, "not-correct-answer");
@@ -290,13 +294,6 @@ function handleTimeout(optionsList, questions, nextQueButton) {
   optionsList
     .querySelectorAll("li")
     .forEach((item) => (item.style.pointerEvents = "none"));
-
-  const createElement = (tag, className = "", textContent = "") => {
-    const element = document.createElement(tag);
-    if (className) element.classList.add(className);
-    if (textContent) element.textContent = textContent;
-    return element;
-  };
 
   const { correct_answer } = questions[currentQuestionIndex];
 
@@ -354,13 +351,6 @@ function showQuizCompletion() {
 
   clearInterval(countdownInterval);
   isQuizCompleted = true;
-
-  const createElement = (tag, className = "", textContent = "") => {
-    const element = document.createElement(tag);
-    if (className) element.classList.add(className);
-    if (textContent) element.textContent = textContent;
-    return element;
-  };
 
   //Declare a variable const with saved localstorage key Score
   const finalScore = localStorage.getItem("Score");
