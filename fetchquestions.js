@@ -59,6 +59,8 @@ export async function fetchQuestions(categoryId) {
     const questions = data.results.map((q) => ({
       ...q,
       question: decodeHtmlEntities(q.question),
+      correct_answer: decodeHtmlEntities(q.correct_answer),
+      incorrect_answers: q.incorrect_answers.map(decodeHtmlEntities),
     }));
 
     console.log("Fetched Questions:", questions);

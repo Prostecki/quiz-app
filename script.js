@@ -33,6 +33,9 @@ let isAnswered = false;
 // Checking if user clicked on something at all
 let answerGiven = false;
 
+//Variable for timer
+const timerDuration = 10;
+
 //Loading bar for questions
 const timerBox = document.createElement("div");
 timerBox.classList.add("timer-box");
@@ -114,9 +117,6 @@ async function startQuiz() {
 function clearPage() {
   appContainer.innerHTML = "";
 }
-
-//Variable for timer
-const timerDuration = 45;
 
 // To display questions
 function displayQuestions(questions) {
@@ -228,12 +228,6 @@ function handleAnswer(
   isAnswered = true;
   answerGiven = true;
 
-  // console.log("Current Question:", questions[currentQuestionIndex]);
-  // console.log("Correct Answer:", correct_answer);
-  // console.log("Options:", optionsList);
-
-  // console.log("Answer given status:", answerGiven);
-
   //Stop the timer with global function
   clearInterval(countdownInterval);
 
@@ -267,6 +261,9 @@ function handleAnswer(
     .forEach((item) => (item.style.pointerEvents = "none"));
 
   nextQueButton.disabled = false;
+
+  //Change a background color when you gave some answer
+  nextQueButton.style.backgroundColor = "green";
   console.log("Next question button enabled");
 }
 
@@ -274,7 +271,7 @@ function goToNextQuestion(questions) {
   console.log("Answer given before checking:", answerGiven);
 
   if (!answerGiven) {
-    console.log("no answer given, cannot go to next question");
+    console.log("No answer given, can not go to next question");
     return;
   }
 
@@ -314,7 +311,7 @@ function handleTimeout(optionsList, questions, nextQueButton) {
 
   appContainer.appendChild(messageDiv);
 
-  messageDiv.classList.add("active");
+  messageDiv.classList.add("showAnswer");
 
   nextQueButton.disabled = false;
 
@@ -431,7 +428,11 @@ function loadScoreboard() {
   clearPage();
   const scoreboard = JSON.parse(localStorage.getItem("scoreboard")) || [];
   const scoreBoardContainer = createElement("div", "score-board-container");
-  const scoreBoardHeadline = createElement("h2", "", "Scoreboard");
+  const scoreBoardHeadline = createElement(
+    "h2",
+    "score-board-headline",
+    "Scoreboard"
+  );
   const leaveButton = createElement("button", "leave-button", "Quit");
 
   const scoreTable = document.createElement("table");
@@ -460,8 +461,8 @@ function loadScoreboard() {
 
   welcomeSection.remove();
   appContainer.classList.add("isActive");
-  scoreBoardContainer.append(scoreBoardHeadline, scoreTable, leaveButton);
-  appContainer.appendChild(scoreBoardContainer);
+  scoreBoardContainer.appendChild(scoreTable);
+  appContainer.append(scoreBoardHeadline, scoreBoardContainer, leaveButton);
 
   leaveButton.addEventListener("click", () => {
     location.reload();
