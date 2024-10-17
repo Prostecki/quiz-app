@@ -372,7 +372,7 @@ function showQuizCompletion() {
   completionButtonBox.append(
     inputQuizName,
     saveResultsButton,
-    startAgainButton,
+    // startAgainButton,
     leaveButton
   );
 
@@ -398,15 +398,15 @@ function showQuizCompletion() {
   stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
   appContainer.appendChild(stopQuizContainer);
 
-  startAgainButton.addEventListener("click", () => {
-    //Delete scores in current session
-    localStorage.removeItem("Score");
-    currentQuestionIndex = 0;
-    currentQuestionPoints = 0;
-    isQuizCompleted = false;
-    clearPage();
-    startQuiz();
-  });
+  // startAgainButton.addEventListener("click", () => {
+  //   //Delete scores in current session
+  //   localStorage.removeItem("Score");
+  //   currentQuestionIndex = 0;
+  //   currentQuestionPoints = 0;
+  //   isQuizCompleted = false;
+  //   clearPage();
+  //   startQuiz();
+  // });
 
   leaveButton.addEventListener("click", () => {
     // localStorage.clear();
