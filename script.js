@@ -389,6 +389,8 @@ function showQuizCompletion() {
       message.textContent = "You nickname saved successfully!";
       inputQuizName.value = "";
       stopQuizContainer.appendChild(message);
+      inputQuizName.disabled = true;
+      saveResultsButton.disabled = true;
     } else {
       console.log("Please enter your name before saving results!");
     }
