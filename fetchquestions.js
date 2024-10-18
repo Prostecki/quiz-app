@@ -1,27 +1,3 @@
-// //Create an async function with construction try and catch
-// export async function fetchQuestions() {
-//   try {
-//     //declare a variable with method fetch and link to questions
-//     const questions = await fetchData("questions.json");
-//     return questions;
-//   } catch (error) {
-//     console.error("Something wrong!:", error);
-//   }
-// }
-
-// async function fetchData(url) {
-//   try {
-//     const response = await fetch(url);
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status ${response.status}`);
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error("Something wrong!:", error);
-//     throw error;
-//   }
-// }
-
 const numberOfQuestions = 10;
 const difficulty = "easy";
 const questionType = "multiple";
@@ -45,7 +21,7 @@ export async function getCategories() {
   }
 }
 
-// Функция для получения вопросов по выбранной категории
+//Function for a choosen category
 export async function fetchQuestions(categoryId) {
   const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}&category=${categoryId}&difficulty=${difficulty}&type=${questionType}`;
 

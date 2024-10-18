@@ -24,12 +24,13 @@ body {
 }
 
 .app-container {
-  width: 90%;
-  /* border: 0.5px solid white; */
-  /* padding: 20px; */
+  max-width: 1536px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   border-radius: 10px;
-  /* min-height: 85vh; */
-  max-width: 400px;
+  /* max-width: 400px; */
   display: none;
 }
 
@@ -46,21 +47,34 @@ body {
   border-radius: 10px;
   padding: 15px;
   position: relative;
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  & h3 {
+  /* & h3 {
     margin: 0 0 5px;
     width: 100%;
     text-align: start;
     font-size: 1rem;
     font-weight: bold;
     color: white;
-  }
-  & button {
+  } */
+  /* & button {
     font-size: 1rem;
-  }
+  } */
+}
+
+.select-headline {
+  margin: 0 0 5px;
+  width: 100%;
+  text-align: start;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+.start-button {
+  font-size: 1rem;
 }
 
 .select-category-wrapper {
@@ -120,7 +134,7 @@ body {
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  width: 50%;
+  width: 100%;
   background-color: #282c34;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -209,15 +223,14 @@ body {
       color: white;
     }
   }
-  & h2 {
-    font-size: 1.2rem;
-    position: relative;
-    margin: 40px 0px 20px;
-  }
   & h3 {
     font-size: 1.2rem;
     margin: 0 0 25px;
   }
+}
+.question-container .question-number {
+  position: relative;
+  margin: 40px 0px 20px;
 }
 
 .question-number::before {
@@ -660,80 +673,4 @@ tbody tr:hover {
   background-color: #e2e2e2;
   color: black;
   transition: background-color 0.3s ease;
-}
-
-/* Media Queries for Small Screens */
-@media (max-width: 768px) {
-  table {
-    font-size: 0.8rem;
-  }
-  .app-container {
-    width: 100%;
-    padding: 5px;
-  }
-
-  .select-category-container {
-    width: 100%;
-    padding: 5px;
-    background-color: rgb(37, 37, 37);
-    box-shadow: none;
-  }
-
-  .select-category-wrapper::after {
-    top: 3.5rem;
-    right: 1rem;
-  }
-
-  .start-button,
-  .computer-science,
-  .computer-games,
-  .start-again-button,
-  .leave-button {
-    max-width: 100%;
-  }
-
-  .welcome-section {
-    width: 85%;
-    background-color: rgb(37, 37, 37);
-    box-shadow: none;
-  }
-
-  .welcome-section article {
-    font-size: 2rem;
-  }
-
-  .greetings-headline {
-    font-size: 1.5rem;
-  }
-
-  .greetings-paragraph {
-    font-size: 1.5rem;
-  }
-
-  .quiz-window {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .quiz-choice {
-    width: 100%;
-  }
-  .score-board-container {
-    background-color: rgb(37, 37, 37);
-  }
-  .stop-quiz-container {
-    width: 100%;
-    background-color: rgb(37, 37, 37);
-    box-shadow: none;
-    height: 60vh;
-  }
-  .stop-quiz-container h3 {
-    font-size: 1.3rem;
-  }
-  .input-quiz-name {
-    width: 70%;
-    margin: 0 0 25px;
-  }
-  .stop-quiz-container button {
-    width: 75%;
-  }
 }
