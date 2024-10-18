@@ -365,16 +365,10 @@ function showQuizCompletion() {
     "save-results-button",
     "Save results"
   );
-  const startAgainButton = createElement("button", "", "Start again!");
   const leaveButton = createElement("button", "leave-button", "Go home!");
   const completionButtonBox = createElement("div", "stop-quiz-box-button");
 
-  completionButtonBox.append(
-    inputQuizName,
-    saveResultsButton,
-    // startAgainButton,
-    leaveButton
-  );
+  completionButtonBox.append(inputQuizName, saveResultsButton, leaveButton);
 
   saveResultsButton.addEventListener("click", () => {
     let message = document.createElement("p");
@@ -398,18 +392,7 @@ function showQuizCompletion() {
   stopQuizContainer.append(stopQuizHeadline, completionButtonBox);
   appContainer.appendChild(stopQuizContainer);
 
-  // startAgainButton.addEventListener("click", () => {
-  //   //Delete scores in current session
-  //   localStorage.removeItem("Score");
-  //   currentQuestionIndex = 0;
-  //   currentQuestionPoints = 0;
-  //   isQuizCompleted = false;
-  //   clearPage();
-  //   startQuiz();
-  // });
-
   leaveButton.addEventListener("click", () => {
-    // localStorage.clear();
     stopQuizContainer.remove();
     location.reload();
     showWelcomeSection();
@@ -435,6 +418,7 @@ function loadScoreboard() {
     "score-board-headline",
     "Scoreboard"
   );
+  const leaveButtonContainer = createElement("div", "leave-button-container");
   const leaveButton = createElement("button", "leave-button", "Quit");
 
   const scoreTable = document.createElement("table");
@@ -464,7 +448,12 @@ function loadScoreboard() {
   welcomeSection.remove();
   appContainer.classList.add("isActive");
   scoreBoardContainer.appendChild(scoreTable);
-  appContainer.append(scoreBoardHeadline, scoreBoardContainer, leaveButton);
+  leaveButtonContainer.appendChild(leaveButton);
+  appContainer.append(
+    scoreBoardHeadline,
+    scoreBoardContainer,
+    leaveButtonContainer
+  );
 
   leaveButton.addEventListener("click", () => {
     location.reload();

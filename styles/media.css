@@ -117,6 +117,9 @@
   .app-container .leave-button {
     font-size: 2rem;
   }
+  .leave-button-container {
+    max-width: 1024px;
+  }
 }
 
 /* L laptop */
@@ -233,83 +236,382 @@
   #score-tbody tr > td {
     font-size: 1.5rem;
   }
-  .app-container .leave-button {
+  #score-table-quit {
+    width: 100%;
     font-size: 2rem;
+  }
+  .leave-button-container {
+    max-width: 768px;
+  }
+}
+
+/* lg */
+@media (max-width: 1024px) {
+  .app-container {
+    max-width: 768px;
+  }
+  .welcome-section {
+    max-width: 425px;
+  }
+  .welcome-title {
+    font-size: 2rem;
+  }
+  .welcome-description {
+    font-size: 1.4rem;
+  }
+  .start-wrapper .start-button {
+    font-size: 1.5rem;
+  }
+  .select-category-container {
+    max-width: 1024px;
+  }
+  .select-headline {
+    font-size: 1.7rem;
+  }
+  .select-category-wrapper::after {
+    top: 5.3rem;
+    right: 2rem;
+    font-size: 1.2rem;
+  }
+  #categorySelect {
+    font-size: 1.2rem;
+  }
+  .start-button {
+    font-size: 1.5rem;
+    padding: 5px 20px;
+  }
+  .question-container {
+    width: 425px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.042);
+  }
+  .total-score {
+    font-size: 1.2rem;
+    padding: 10px;
+    max-width: max-content;
+  }
+  .question-container h3 {
+    font-size: 1.2rem;
+  }
+  .question-container ul {
+    max-width: 100%;
+    & li {
+      font-size: 1rem;
+    }
+  }
+  .question-number {
+    font-size: 1.2rem;
+  }
+  .bottom-box-question,
+  .next-question-button,
+  .timer {
+    font-size: 1rem;
+  }
+  .next-question-button {
+    padding: 5px 20px;
+  }
+  .correct-answer-message {
+    font-size: 1.2rem;
+  }
+  .timer-box,
+  .timer-bar {
+    height: 2rem;
+  }
+  .stop-quiz-container {
+    max-width: 768px;
+  }
+  .stop-quiz-container h3 {
+    font-size: 1.5rem;
+  }
+  .stop-quiz-box-button {
+    width: 100%;
+    gap: 20px;
+    height: auto;
+  }
+  .input-quiz-name {
+    width: 50%;
+    padding: 10px;
+    font-size: 1.2rem;
+  }
+  .stop-quiz-box-button .save-results-button {
+    font-size: 1.5rem;
+    padding: 5px 20px;
+  }
+  .stop-quiz-box-button .leave-button {
+    font-size: 1.2rem;
+    width: 100%;
+  }
+  .stop-quiz-container p {
+    font-size: 1.5rem;
+  }
+  .score-board-container {
+    min-width: 768px;
+    max-height: 50vh;
+  }
+  .score-board-container table {
+    width: 100%;
+    max-width: 768px;
+  }
+  .score-board-container thead tr th {
+    font-size: 1.5rem;
+  }
+  .score-board-headline {
+    font-size: 2.5rem;
+  }
+  #score-tbody tr > td {
+    font-size: 1.5rem;
+  }
+  .leave-button-container {
+    max-width: 768px;
+    /* max-width: 1024px; */
+  }
+  .app-container .leave-button {
+    font-size: 1.5rem;
   }
 }
 
 /* Media Queries for Small Screens */
 @media (max-width: 768px) {
-  table {
-    font-size: 0.8rem;
-  }
   .app-container {
-    width: 100%;
-    padding: 5px;
+    max-width: 425px;
   }
-
-  .select-category-container {
-    width: 100%;
-    padding: 5px;
-    background-color: rgb(37, 37, 37);
-    box-shadow: none;
-  }
-
-  .select-category-wrapper::after {
-    top: 3.5rem;
-    right: 1rem;
-  }
-
-  .start-button,
-  .computer-science,
-  .computer-games,
-  .start-again-button,
-  .leave-button {
-    max-width: 100%;
-  }
-
   .welcome-section {
-    width: 85%;
-    background-color: rgb(37, 37, 37);
-    box-shadow: none;
+    max-width: 425px;
   }
-
-  .welcome-section article {
+  .welcome-title {
     font-size: 2rem;
   }
-
-  .greetings-headline {
+  .welcome-description {
+    font-size: 1.4rem;
+  }
+  .start-wrapper .start-button {
     font-size: 1.5rem;
   }
-
-  .greetings-paragraph {
+  .select-category-container {
+    max-width: 425px;
+  }
+  .select-headline {
     font-size: 1.5rem;
   }
-
-  .quiz-window {
-    grid-template-columns: 1fr 1fr;
+  .select-category-wrapper::after {
+    top: 5rem;
+    right: 2rem;
+    font-size: 1.2rem;
   }
-
-  .quiz-choice {
-    width: 100%;
+  #categorySelect {
+    font-size: 1.2rem;
   }
-  .score-board-container {
-    background-color: rgb(37, 37, 37);
+  .start-button {
+    font-size: 1.5rem;
+    padding: 5px 20px;
+  }
+  .question-container {
+    width: 425px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.042);
+  }
+  .total-score {
+    font-size: 1rem;
+    padding: 10px;
+    max-width: max-content;
+  }
+  .question-container h3 {
+    font-size: 1.2rem;
+  }
+  .question-container ul {
+    max-width: 100%;
+    & li {
+      font-size: 1rem;
+    }
+  }
+  .question-number {
+    font-size: 1.2rem;
+  }
+  .bottom-box-question,
+  .next-question-button,
+  .timer {
+    font-size: 1rem;
+  }
+  .next-question-button {
+    padding: 5px 20px;
+  }
+  .correct-answer-message {
+    font-size: 1.2rem;
+  }
+  .timer-box,
+  .timer-bar {
+    height: 2rem;
   }
   .stop-quiz-container {
-    width: 100%;
-    background-color: rgb(37, 37, 37);
-    box-shadow: none;
-    height: 60vh;
+    max-width: 425px;
   }
   .stop-quiz-container h3 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+  }
+  .stop-quiz-box-button {
+    width: 100%;
+    gap: 20px;
+    height: auto;
   }
   .input-quiz-name {
-    width: 70%;
-    margin: 0 0 25px;
+    width: 50%;
+    padding: 10px;
+    font-size: 1rem;
   }
-  .stop-quiz-container button {
-    width: 75%;
+  .stop-quiz-box-button .save-results-button {
+    font-size: 1.2rem;
+    padding: 5px 20px;
+  }
+  .stop-quiz-box-button .leave-button {
+    font-size: 1.2rem;
+    /* width: 100%; */
+    max-width: 9.5rem;
+  }
+  .stop-quiz-container p {
+    font-size: 1.5rem;
+  }
+  .score-board-container {
+    min-width: 425px;
+    max-height: 50vh;
+  }
+  .score-board-container table {
+    width: 100%;
+    max-width: 425px;
+  }
+  .score-board-container thead tr th {
+    font-size: 1rem;
+  }
+  .score-board-headline {
+    font-size: 2rem;
+  }
+  #score-tbody tr > td {
+    font-size: 1rem;
+  }
+  .leave-button-container {
+    max-width: 425px;
+  }
+  .app-container .leave-button {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .app-container {
+    max-width: 345px;
+  }
+  .welcome-section {
+    max-width: 345px;
+  }
+  .welcome-title {
+    font-size: 1.6rem;
+  }
+  .welcome-description {
+    font-size: 1.2rem;
+  }
+  .start-wrapper .start-button {
+    font-size: 1.2rem;
+  }
+  .select-category-container {
+    max-width: 345px;
+  }
+  .select-headline {
+    font-size: 1.2rem;
+  }
+  .select-category-wrapper::after {
+    top: 4.7rem;
+    right: 2rem;
+    font-size: 1.2rem;
+  }
+  #categorySelect {
+    font-size: 1.1rem;
+  }
+  .start-button {
+    font-size: 1.2rem;
+    padding: 5px 20px;
+  }
+  .question-container {
+    width: 425px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.042);
+  }
+  .total-score {
+    font-size: 1rem;
+    padding: 10px;
+    max-width: max-content;
+  }
+  .question-container h3 {
+    font-size: 1.2rem;
+  }
+  .question-container ul {
+    max-width: 100%;
+    & li {
+      font-size: 1rem;
+    }
+  }
+  .question-number {
+    font-size: 1.2rem;
+  }
+  .bottom-box-question,
+  .next-question-button,
+  .timer {
+    font-size: 1rem;
+  }
+  .next-question-button {
+    padding: 5px 20px;
+  }
+  .correct-answer-message {
+    font-size: 1.2rem;
+  }
+  .timer-box,
+  .timer-bar {
+    height: 2rem;
+  }
+  .stop-quiz-container {
+    max-width: 425px;
+  }
+  .stop-quiz-container h3 {
+    font-size: 1.5rem;
+  }
+  .stop-quiz-box-button {
+    width: 100%;
+    gap: 20px;
+    height: auto;
+  }
+  .input-quiz-name {
+    width: 50%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+  .stop-quiz-box-button .save-results-button {
+    font-size: 1.2rem;
+    padding: 5px 20px;
+  }
+  .stop-quiz-box-button .leave-button {
+    font-size: 1.2rem;
+    /* width: 100%; */
+    max-width: 9.5rem;
+  }
+  .stop-quiz-container p {
+    font-size: 1.5rem;
+  }
+  .score-board-container {
+    min-width: 425px;
+    max-height: 50vh;
+  }
+  .score-board-container table {
+    width: 100%;
+    max-width: 425px;
+  }
+  .score-board-container thead tr th {
+    font-size: 1rem;
+  }
+  .score-board-headline {
+    font-size: 2rem;
+  }
+  #score-tbody tr > td {
+    font-size: 1rem;
+  }
+  .leave-button-container {
+    max-width: 425px;
+  }
+  .app-container .leave-button {
+    font-size: 1.2rem;
   }
 }

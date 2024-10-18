@@ -27,8 +27,8 @@ body {
   max-width: 1536px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  /* padding-left: 0.5rem;
+  padding-right: 0.5rem; */
   border-radius: 10px;
   /* max-width: 400px; */
   display: none;
@@ -445,6 +445,11 @@ body {
 
 .start-again-button {
   background-color: greenyellow;
+}
+
+.leave-button-container {
+  display: flex;
+  justify-content: center;
 }
 
 .leave-button {
