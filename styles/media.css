@@ -2,19 +2,18 @@
 @media (max-width: 2560px) {
   .app-container {
     max-width: 1440px;
-    /* min-height: 80%; */
   }
   .welcome-section {
     max-width: 1440px;
   }
   .welcome-title {
-    font-size: 5rem;
+    font-size: 3rem;
   }
   .welcome-description {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
   .start-wrapper .start-button {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
   .select-category-container {
     max-width: 1440px;
@@ -35,46 +34,48 @@
     font-size: 2rem;
   }
   .question-container {
-    max-width: 100%;
+    width: 768px;
+    max-width: 1440px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.042);
   }
   .total-score {
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: 10px;
     max-width: max-content;
   }
   .question-container h3 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
   .question-container ul {
     max-width: 100%;
     & li {
-      font-size: 3rem;
+      font-size: 1.5rem;
     }
   }
   .question-number {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .bottom-box-question,
   .next-question-button,
   .timer {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .next-question-button {
     padding: 5px 20px;
   }
   .correct-answer-message {
-    font-size: 3rem;
+    font-size: 2rem;
   }
   .timer-box,
   .timer-bar {
     height: 2rem;
   }
   .stop-quiz-container {
+    width: 768px;
     max-width: 1440px;
   }
   .stop-quiz-container h3 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   .stop-quiz-box-button {
     width: 100%;
@@ -84,17 +85,17 @@
   .input-quiz-name {
     width: 50%;
     padding: 10px;
-    font-size: 3rem;
+    font-size: 1.7rem;
   }
   .stop-quiz-box-button .save-results-button {
-    font-size: 2.5rem;
+    font-size: 2rem;
     padding: 5px 20px;
   }
   .stop-quiz-box-button .leave-button {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
   .stop-quiz-container p {
-    font-size: 3rem;
+    font-size: 2rem;
   }
   .score-board-container {
     min-width: 1440px;
@@ -114,7 +115,7 @@
     font-size: 2rem;
   }
   .app-container .leave-button {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 }
 

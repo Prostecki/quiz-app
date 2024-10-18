@@ -34,7 +34,7 @@ let isAnswered = false;
 let answerGiven = false;
 
 //Variable for timer
-const timerDuration = 60;
+const timerDuration = 10;
 
 //Loading bar for questions
 const timerBox = document.createElement("div");

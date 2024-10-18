@@ -448,7 +448,7 @@ body {
 }
 
 .leave-button {
-  font-size: 1.4rem;
+  /* font-size: 1.4rem; */
   margin: 25px 0 0;
   background-color: #007bff;
   cursor: pointer;
